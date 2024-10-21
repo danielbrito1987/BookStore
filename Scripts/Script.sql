@@ -24,3 +24,24 @@ CREATE TABLE Assunto
 	
 	PRIMARY KEY (CodAs)
 )
+
+CREATE TABLE Livro_Autor
+(
+	Livro_Codl INT NOT NULL,
+	Autor_CodAu INT NOT NULL,
+	
+	FOREIGN KEY (Livro_Codl) REFERENCES Livro(Codl),
+	FOREIGN KEY (Autor_CodAu) REFERENCES Autor(CodAu)
+)
+
+CREATE TABLE Livro_Assunto
+(
+	Livro_Codl INT NOT NULL,
+	Assunto_CodAs INT NOT NULL,
+	
+	FOREIGN KEY (Livro_Codl) REFERENCES Livro(Codl),
+	FOREIGN KEY (Assunto_CodAs) REFERENCES Assunto(CodAs)
+)
+
+
+

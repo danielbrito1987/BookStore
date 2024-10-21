@@ -1,0 +1,5 @@
+C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Infra\obj\Debug\net6.0\BookStore.Infra.csproj.AssemblyReference.cache
+C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Infra\obj\Debug\net6.0\BookStore.Infra.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Infra\obj\Debug\net6.0\BookStore.Infra.AssemblyInfoInputs.cache
+C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Infra\obj\Debug\net6.0\BookStore.Infra.AssemblyInfo.cs
+C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Infra\obj\Debug\net6.0\BookStore.Infra.csproj.CoreCompileInputs.cache
