@@ -1,0 +1,26 @@
+CREATE TABLE Livro
+(
+	Codl INT NOT NULL AUTO_INCREMENT,
+	Titulo VARCHAR(40),
+	Editoria VARCHAR(40),
+	Edicao INTEGER,
+	AnoPublicacao VARCHAR(4),
+	
+	PRIMARY KEY (Codl)
+)
+
+CREATE TABLE Autor
+(
+	CodAu INT NOT NULL AUTO_INCREMENT,
+	Nome VARCHAR(40),
+	
+	PRIMARY KEY (CodAu)
+)
+
+CREATE TABLE Assunto
+(
+	CodAs INT NOT NULL AUTO_INCREMENT,
+	Descricao VARCHAR(20),
+	
+	PRIMARY KEY (CodAs)
+)
