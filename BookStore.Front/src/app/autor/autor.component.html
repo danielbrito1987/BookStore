@@ -1,0 +1,80 @@
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Autores</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+          <li class="breadcrumb-item active">Autores</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="container-fluid">
+    <!-- Formulário de Filtro -->
+    <form (ngSubmit)="loadAutores()" class="mb-3">
+      <div class="form-row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Filtrar por Nome" [(ngModel)]="filterNome"
+            name="filterNome">
+        </div>
+        <div class="col">
+          <button type="submit" class="btn btn-primary">Filtrar</button>
+          <button type="button" class="btn btn-success" (click)="openModal()">Novo Autor</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Tabela de Autores -->
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let autor of autores">
+          <td>{{ autor.id }}</td>
+          <td>{{ autor.nome }}</td>
+          <td>
+            <button class="btn btn-warning" (click)="openModal(autor)">Editar</button>
+            <button class="btn btn-danger" (click)="confirmDelete(autor)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalAutor" tabindex="-1" role="dialog" aria-labelledby="modalAutorLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalAutorLabel">Novo Autor</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="autorForm" (ngSubmit)="saveAutor()">
+              <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" formControlName="nome" class="form-control" required>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary" (click)="saveAutor()">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

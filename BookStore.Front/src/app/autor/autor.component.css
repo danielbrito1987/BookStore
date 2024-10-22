@@ -1,0 +1,9 @@
+.modal-header {
+    background-color: #007bff;
+    color: white;
+}
+
+.table th,
+.table td {
+    text-align: center;
+}
