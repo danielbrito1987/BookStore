@@ -47,6 +47,8 @@
         <tr>
           <th>Título</th>
           <th>Editora</th>
+          <th>Ano de Publicação</th>
+          <th>Edição</th>
           <!-- <th>Autores</th>
           <th>Assuntos</th> -->
           <th>Ações</th>
@@ -56,6 +58,8 @@
         <tr *ngFor="let livro of livros">
           <td>{{ livro.titulo }}</td>
           <td>{{ livro.editora }}</td>
+          <td>{{ livro.anoPublicacao }}</td>
+          <td>{{ livro.edicao }}</td>
           <!-- <td>{{ livro.autores.join(', ') }}</td>
           <td>{{ livro.assuntos.join(', ') }}</td> -->
           <td>
@@ -71,39 +75,47 @@
     </table>
 
     <!-- Modal -->
-    <div class="modal fade" id="modalLivro" tabindex="-1" role="dialog" aria-labelledby="modalLivroLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
+    <div class="modal fade" id="modalLivro" tabindex="-1" aria-labelledby="modalLivroLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modalLivroLabel">{{ isEditing ? 'Editar Livro' : 'Novo Livro' }}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title">{{ isEditing ? 'Editar Livro' : 'Novo Livro' }}</h5>
+            <button type="button" class="close" (click)="closeModal()" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <form [formGroup]="livroForm">
+            <form [formGroup]="livroForm" (ngSubmit)="saveLivro()">
               <div class="form-group">
                 <label for="titulo">Título</label>
-                <input type="text" id="titulo" formControlName="titulo" class="form-control" />
+                <input type="text" class="form-control" formControlName="titulo" id="titulo" required>
               </div>
               <div class="form-group">
                 <label for="editora">Editora</label>
-                <input type="text" id="editora" formControlName="editora" class="form-control" />
+                <input type="text" class="form-control" formControlName="editora" id="editora" required>
+              </div>
+              <div class="form-group">
+                <label for="anoPublicacao">Ano de Publicação</label>
+                <input type="text" class="form-control" formControlName="anoPublicacao" id="anoPublicacao" required>
+              </div>
+              <div class="form-group">
+                <label for="edicao">Edição</label>
+                <input type="text" class="form-control" formControlName="edicao" id="edicao" required>
               </div>
               <div class="form-group">
                 <label for="autores">Autores</label>
-                <input type="text" id="autores" formControlName="autores" class="form-control" />
+                <select class="form-control" formControlName="autoresIds" multiple>
+                  <option *ngFor="let autor of autores" [value]="autor.codAutor">{{ autor.nome }}</option>
+                </select>
               </div>
               <div class="form-group">
                 <label for="assuntos">Assuntos</label>
-                <input type="text" id="assuntos" formControlName="assuntos" class="form-control" />
+                <select class="form-control" formControlName="assuntosIds" multiple>
+                  <option *ngFor="let assunto of assuntos" [value]="assunto.codAssunto">{{ assunto.descricao }}</option>
+                </select>
               </div>
+              <button type="submit" class="btn btn-primary">Salvar</button>
             </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="closeModal()">Fechar</button>
-            <button type="button" class="btn btn-primary" (click)="saveLivro()">Salvar</button>
           </div>
         </div>
       </div>

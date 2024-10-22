@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
+import { Assunto } from 'src/models/assunto.model';
 import { Autor } from 'src/models/autor.model';
 import { Livro } from 'src/models/livro.model';
+import { AssuntoService } from 'src/services/assunto.service';
 import { AutorService } from 'src/services/autor.service';
 import { LivroService } from 'src/services/livro.service';
 
@@ -19,22 +21,28 @@ export class LivroComponent implements OnInit {
   livroForm: FormGroup;
   modalTitle: string = '';
   autores: Autor[] = [];
+  assuntos: Assunto[] = [];
   isEditing: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private autorService: AutorService,
+    private assuntoService: AssuntoService,
     private livroService: LivroService
   ) {
     this.livroForm = this.fb.group({
+      codLivro: [0],
       titulo: ['', Validators.required],
       editora: ['', Validators.required],
-      autores: ['', Validators.required], // Use FormArray for multiple authors
-      assuntos: ['', Validators.required] // Use FormArray for multiple subjects
+      anoPublicacao: ['', Validators.required],
+      edicao: ['', Validators.required],
+      autoresIds: [[], Validators.required],
+      assuntosIds: [[], Validators.required]
     });
   }
 
   ngOnInit(): void {
+    this.loadAssuntos();
     this.loadAutores();
     this.loadLivros();
   }
@@ -43,6 +51,14 @@ export class LivroComponent implements OnInit {
     this.autorService.getAll().subscribe((data) => {
       if (data) {
         this.autores = data;
+      }
+    })
+  }
+
+  loadAssuntos() {
+    this.assuntoService.getAll().subscribe((data) => {
+      if (data) {
+        this.assuntos = data;
       }
     })
   }
@@ -63,7 +79,7 @@ export class LivroComponent implements OnInit {
     })
   }
 
-  openModal(isEditMode: boolean = false, livro?: any) {
+  openModal(isEditMode: boolean = false, livro?: Livro) {
     const modalElement = document.getElementById('modalLivro');
     if (modalElement) {
       const modal = new bootstrap.Modal(modalElement);
@@ -72,10 +88,13 @@ export class LivroComponent implements OnInit {
 
       if (isEditMode && livro) {
         this.livroForm.patchValue({
+          codLivro: livro.codLivro,
           titulo: livro.titulo,
           editora: livro.editora,
-          autores: livro.autores,
-          assuntos: livro.assuntos
+          anoPublicacao: livro.anoPublicacao,
+          edicao: livro.edicao,
+          autoresIds: livro.autoresIds,
+          assuntosIds: livro.assuntosIds
         });
       } else {
         this.livroForm.reset();
@@ -103,11 +122,17 @@ export class LivroComponent implements OnInit {
   }
 
   saveLivro() {
+    this.isLoading = true;
+
     if (this.livroForm.valid) {
       if (this.isEditing) {
-        // Update the book
+        this.livroService.update(this.livroForm.value).subscribe((data) => {
+          this.loadLivros();
+        })
       } else {
-        // Create new book
+        this.livroService.create(this.livroForm.value).subscribe((data) => {
+          this.loadLivros();
+        })
       }
       this.closeModal();
     }
