@@ -20,5 +20,7 @@ namespace BookStore.Domain.Entity
 
         [JsonIgnore]
         public List<LivroAssunto> LivroAssuntos { get; set; } = new List<LivroAssunto>();
+
+        public List<PrecoLivro> Precos { get; set; } = new List<PrecoLivro>();
     }
 }

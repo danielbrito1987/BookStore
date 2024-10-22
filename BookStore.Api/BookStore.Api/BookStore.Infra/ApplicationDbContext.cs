@@ -1,4 +1,5 @@
 ﻿using BookStore.Domain.Entity;
+using BookStore.Infra.Mapping;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace BookStore.Infra
         public DbSet<Assunto> Assuntos { get; set; }
         public DbSet<LivroAssunto> LivrosAssuntos { get; set; }
         public DbSet<LivroAutor> LivrosAutors { get; set; }
+        public DbSet<PrecoLivro> PrecosLivros { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +30,7 @@ namespace BookStore.Infra
             modelBuilder.ApplyConfiguration(new AssuntoMap());
             modelBuilder.ApplyConfiguration(new LivroAssuntoMap());
             modelBuilder.ApplyConfiguration(new LivroAutorMap());
+            modelBuilder.ApplyConfiguration(new PrecoLivroMap());
         }
     }
 }
