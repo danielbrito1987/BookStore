@@ -15,6 +15,8 @@ namespace BookStore.Api.Setup
             CreateMap<Assunto, AssuntoDto>().ReverseMap();
             CreateMap<AutorDto, CreateAutorCommand>().ReverseMap();
             CreateMap<AutorDto, UpdateAutorCommand>().ReverseMap();
+            CreateMap<AssuntoDto, CreateAssuntoCommand>().ReverseMap();
+            CreateMap<AssuntoDto, UpdateAssuntoCommand>().ReverseMap();
 
             CreateMap<LivroAutor, LivroAutorDto>()
                     .ForMember(x => x.NomeAutor, y => y.MapFrom(m => m.Autor.Nome))

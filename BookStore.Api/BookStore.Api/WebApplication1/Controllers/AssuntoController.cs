@@ -1,4 +1,6 @@
-﻿using BookStore.Services.DTO;
+﻿using AutoMapper;
+using BookStore.Api.Commands;
+using BookStore.Services.DTO;
 using BookStore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +11,12 @@ namespace BookStore.Api.Controllers
     public class AssuntoController : ControllerBase
     {
         private readonly IAssuntoService _assuntoService;
+        private readonly IMapper _mapper;
 
-        public AssuntoController(IAssuntoService assuntoService)
+        public AssuntoController(IAssuntoService assuntoService, IMapper mapper)
         {
             _assuntoService = assuntoService;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -48,12 +52,14 @@ namespace BookStore.Api.Controllers
         /// <param name="assunto"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<AssuntoDto>> PostAssunto([FromBody] AssuntoDto assunto)
+        public async Task<ActionResult<AssuntoDto>> PostAssunto([FromBody] CreateAssuntoCommand command)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            var assunto = _mapper.Map<AssuntoDto>(command);
 
             await _assuntoService.AddAsync(assunto);
 
@@ -67,12 +73,14 @@ namespace BookStore.Api.Controllers
         /// <param name="assunto"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAssunto(int id, [FromBody] AssuntoDto assunto)
+        public async Task<IActionResult> PutAssunto(int id, [FromBody] UpdateAssuntoCommand command)
         {
-            if (id != assunto.CodAssunto)
+            if (id != command.CodAssunto)
             {
                 return BadRequest();
             }
+
+            var assunto = _mapper.Map<AssuntoDto>(command);
 
             await _assuntoService.UpdateAsync(assunto);
             return NoContent();
