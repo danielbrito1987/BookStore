@@ -9,6 +9,16 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 // Configura a conexão com o MySQL
 var connectionString = builder.Configuration.GetConnectionString("MySqlConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -26,6 +36,8 @@ builder.Services.AddScoped<IAutorService, AutorService>();
 builder.Services.AddScoped<IAssuntoRepository, AssuntoRepository>();
 builder.Services.AddScoped<IAssuntoService, AssuntoService>();
 
+builder.Services.AddScoped<IDashboardService, DashboardService>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -39,6 +51,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseRouting();
+
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 

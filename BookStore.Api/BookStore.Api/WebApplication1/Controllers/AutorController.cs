@@ -1,4 +1,6 @@
-﻿using BookStore.Domain.Entity;
+﻿using AutoMapper;
+using BookStore.Api.Commands;
+using BookStore.Domain.Entity;
 using BookStore.Services.DTO;
 using BookStore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +12,12 @@ namespace BookStore.Api.Controllers
     public class AutorController : ControllerBase
     {
         private readonly IAutorService _autorService;
+        private readonly IMapper _mapper;
 
-        public AutorController(IAutorService autorService)
+        public AutorController(IAutorService autorService, IMapper mapper)
         {
             _autorService = autorService;
+            _mapper = mapper;
         }
 
         // GET: api/Autores
@@ -21,6 +25,7 @@ namespace BookStore.Api.Controllers
         public async Task<ActionResult<IEnumerable<AutorDto>>> GetAutores()
         {
             var autores = await _autorService.GetAllAsync();
+
             return Ok(autores);
         }
 
@@ -33,33 +38,39 @@ namespace BookStore.Api.Controllers
             {
                 return NotFound();
             }
+
             return Ok(autor);
         }
 
         // POST: api/Autores
         [HttpPost]
-        public async Task<ActionResult<Autor>> PostAutor([FromBody] AutorDto autor)
+        public async Task<ActionResult<Autor>> PostAutor([FromBody] CreateAutorCommand command)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            await _autorService.AddAsync(autor);
+            var autorDto = _mapper.Map<AutorDto>(command);
 
-            return CreatedAtAction(nameof(GetAutor), new { id = autor.CodAutor }, autor);
+            await _autorService.AddAsync(autorDto);
+
+            return CreatedAtAction(nameof(GetAutor), new { id = autorDto.CodAutor }, autorDto);
         }
 
         // PUT: api/Autores/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAutor(int id, [FromBody] AutorDto autor)
+        public async Task<IActionResult> PutAutor(int id, [FromBody] UpdateAutorCommand command)
         {
-            if (id != autor.CodAutor)
+            if (id != command.CodAutor)
             {
                 return BadRequest();
             }
 
-            await _autorService.UpdateAsync(autor);
+            var autorDto = _mapper.Map<AutorDto>(command);
+
+            await _autorService.UpdateAsync(autorDto);
+
             return NoContent();
         }
 
@@ -68,6 +79,7 @@ namespace BookStore.Api.Controllers
         public async Task<IActionResult> DeleteAutor(int id)
         {
             await _autorService.DeleteAsync(id);
+
             return NoContent();
         }
     }

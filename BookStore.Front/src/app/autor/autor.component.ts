@@ -10,17 +10,20 @@ import * as bootstrap from 'bootstrap';
   styleUrls: ['./autor.component.css']
 })
 export class AutorComponent implements OnInit {
+  isLoading = false;
   autores: Autor[] = [];
   autorForm: FormGroup;
   selectedAutor: Autor | null = null;
   isEditing: boolean = false;
   filterNome: string = '';
 
-  constructor(private authorService: AutorService, private fb: FormBuilder) {
+  constructor(
+    private authorService: AutorService,
+    private fb: FormBuilder
+  ) {
     this.autorForm = this.fb.group({
-      id: [''],
-      nome: [''],
-      email: [''],
+      codAutor: [''],
+      nome: ['']
     });
   }
 
@@ -29,10 +32,14 @@ export class AutorComponent implements OnInit {
   }
 
   loadAutores() {
+    this.isLoading = true;
+
     this.authorService.getAll().subscribe(data => {
       this.autores = data.filter(author =>
         author.nome.toLowerCase().includes(this.filterNome.toLowerCase())
       );
+
+      this.isLoading = false;
     });
   }
 
@@ -47,6 +54,7 @@ export class AutorComponent implements OnInit {
     }
 
     const modalElement = document.getElementById('modalAutor');
+
     if (modalElement) {
       const modal = new bootstrap.Modal(modalElement);
       modal.show();
@@ -55,7 +63,24 @@ export class AutorComponent implements OnInit {
     }
   }
 
+  closeModal() {
+    const modalElement = document.getElementById('modalAutor');
+
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement); // Obter a instância da modal
+      if (modal) {
+        modal.hide();
+      } else {
+        console.error('Modal instance not found');
+      }
+    } else {
+      console.error('Modal element not found');
+    }
+  }
+
   saveAutor() {
+    this.isLoading = true;
+
     if (this.isEditing) {
       this.authorService.update(this.autorForm.value).subscribe(() => {
         this.loadAutores();
@@ -65,12 +90,16 @@ export class AutorComponent implements OnInit {
         this.loadAutores();
       });
     }
+
+    this.closeModal();
   }
 
   confirmDelete(autor: Autor) {
     const confirmDelete = confirm('Tem certeza que deseja excluir este autor?');
     if (confirmDelete) {
-      this.authorService.delete(autor.id).subscribe(() => {
+      this.isLoading = true;
+      
+      this.authorService.delete(autor.codAutor).subscribe(() => {
         this.loadAutores();
       });
     }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookStore.Api.Commands;
 using BookStore.Domain.DTO;
 using BookStore.Domain.Entity;
 using BookStore.Services.DTO;
@@ -12,6 +13,8 @@ namespace BookStore.Api.Setup
             // Mapeamento entre Autor e AutorDTO
             CreateMap<Autor, AutorDto>().ReverseMap();
             CreateMap<Assunto, AssuntoDto>().ReverseMap();
+            CreateMap<AutorDto, CreateAutorCommand>().ReverseMap();
+            CreateMap<AutorDto, UpdateAutorCommand>().ReverseMap();
 
             CreateMap<LivroAutor, LivroAutorDto>()
                     .ForMember(x => x.NomeAutor, y => y.MapFrom(m => m.Autor.Nome))
