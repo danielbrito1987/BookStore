@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace BookStore.Domain.Entity
@@ -14,7 +15,10 @@ namespace BookStore.Domain.Entity
         public int Edicao { get; set; }
         public string AnoPublicacao { get; set; }
 
-        public ICollection<LivroAutor> LivroAutores { get; set; }
-        public ICollection<LivroAssunto> LivroAssuntos { get; set; }
+        [JsonIgnore]
+        public List<LivroAutor> LivroAutores { get; set; } = new List<LivroAutor>();
+
+        [JsonIgnore]
+        public List<LivroAssunto> LivroAssuntos { get; set; } = new List<LivroAssunto>();
     }
 }

@@ -11,6 +11,14 @@ public class LivroAssuntoMap : IEntityTypeConfiguration<LivroAssunto>
         // Definindo a chave primária composta
         builder.HasKey(la => new { la.CodLivro, la.CodAssunto });
 
+        builder.Property(la => la.CodLivro)
+            .HasColumnName("Livro_Codl")
+            .IsRequired();
+
+        builder.Property(la => la.CodAssunto)
+            .HasColumnName("Assunto_CodAs")
+            .IsRequired();
+
         // Configurando relacionamento muitos para muitos
         builder.HasOne(la => la.Livro)
             .WithMany(l => l.LivroAssuntos)

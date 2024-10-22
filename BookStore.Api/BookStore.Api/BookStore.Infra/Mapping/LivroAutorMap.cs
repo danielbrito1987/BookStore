@@ -7,10 +7,18 @@ public class LivroAutorMap : IEntityTypeConfiguration<LivroAutor>
     public void Configure(EntityTypeBuilder<LivroAutor> builder)
     {
         // Configura o nome da tabela
-        builder.ToTable("LivroAutor");
+        builder.ToTable("Livro_Autor");
 
         // Configura a chave primária
         builder.HasKey(la => new { la.CodLivro, la.CodAutor });
+
+        builder.Property(la => la.CodLivro)
+            .HasColumnName("Livro_Codl")
+            .IsRequired();
+
+        builder.Property(la => la.CodAutor)
+            .HasColumnName("Autor_CodAu")
+            .IsRequired();
 
         // Configura as relações
         builder.HasOne(la => la.Livro)

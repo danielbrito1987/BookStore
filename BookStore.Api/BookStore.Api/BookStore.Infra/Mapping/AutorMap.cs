@@ -11,6 +11,10 @@ public class AutorMap : IEntityTypeConfiguration<Autor>
         // Definindo a chave primária
         builder.HasKey(a => a.CodAutor);
 
+        builder.Property(a => a.CodAutor)
+            .HasColumnName("CodAu")
+            .IsRequired();
+
         // Mapeando propriedades
         builder.Property(a => a.Nome)
             .HasColumnType("varchar(40)")

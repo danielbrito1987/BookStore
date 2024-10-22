@@ -6,7 +6,7 @@ public class LivroMap : IEntityTypeConfiguration<Livro>
 {
     public void Configure(EntityTypeBuilder<Livro> builder)
     {
-        builder.ToTable("Livros");  // Mapeia para a tabela Livros
+        builder.ToTable("Livro");  // Mapeia para a tabela Livros
 
         builder.HasKey(l => l.CodLivro);  // Chave primária
 

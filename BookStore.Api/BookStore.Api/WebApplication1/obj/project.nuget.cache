@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "I8vUGz1gf3ujVdMtx7PpxEdrFyWikK8s1gasWOUM6SGF61csJEDXMPZCp2zCkCvvWlN9+1eUTHqO8qRPQywk2A==",
+  "dgSpecHash": "Fg5sIbYKdrAiy9g8RRhSNrhEeQVdGi3X0CG+mEeHT2TdUEhPCBobzKhR4EzRocYddloK09R/Chk3Lb9bDqI/QQ==",
   "success": true,
   "projectFilePath": "C:\\Projetos\\BookStore\\BookStore.Api\\BookStore.Api\\WebApplication1\\BookStore.Api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.35\\microsoft.entityframeworkcore.6.0.35.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.35\\microsoft.entityframeworkcore.abstractions.6.0.35.nupkg.sha512",

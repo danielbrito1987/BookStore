@@ -2,6 +2,18 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "AutoMapper/13.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Options": "6.0.0"
+        },
+        "compile": {
+          "lib/net6.0/AutoMapper.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/AutoMapper.dll": {}
+        }
+      },
       "Humanizer.Core/2.8.26": {
         "type": "package",
         "compile": {
@@ -355,6 +367,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "AutoMapper": "13.0.1",
           "Microsoft.EntityFrameworkCore": "6.0.35",
           "Pomelo.EntityFrameworkCore.MySql": "6.0.2"
         },
@@ -379,10 +392,39 @@
         "runtime": {
           "bin/placeholder/BookStore.Infra.dll": {}
         }
+      },
+      "BookStore.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "BookStore.Domain": "1.0.0",
+          "BookStore.Infra": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/BookStore.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BookStore.Services.dll": {}
+        }
       }
     }
   },
   "libraries": {
+    "AutoMapper/13.0.1": {
+      "sha512": "/Fx1SbJ16qS7dU4i604Sle+U9VLX+WSNVJggk6MupKVkYvvBm4XqYaeFuf67diHefHKHs50uQIS2YEDFhPCakQ==",
+      "type": "package",
+      "path": "automapper/13.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "automapper.13.0.1.nupkg.sha512",
+        "automapper.nuspec",
+        "icon.png",
+        "lib/net6.0/AutoMapper.dll",
+        "lib/net6.0/AutoMapper.xml"
+      ]
+    },
     "Humanizer.Core/2.8.26": {
       "sha512": "OiKusGL20vby4uDEswj2IgkdchC1yQ6rwbIkZDVBPIR6al2b7n3pC91elBul9q33KaBgRKhbZH3+2Ur4fnWx2A==",
       "type": "package",
@@ -972,11 +1014,18 @@
       "type": "project",
       "path": "../BookStore.Infra/BookStore.Infra.csproj",
       "msbuildProject": "../BookStore.Infra/BookStore.Infra.csproj"
+    },
+    "BookStore.Services/1.0.0": {
+      "type": "project",
+      "path": "../BookStore.Services/BookStore.Services.csproj",
+      "msbuildProject": "../BookStore.Services/BookStore.Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "AutoMapper >= 13.0.1",
       "BookStore.Infra >= 1.0.0",
+      "BookStore.Services >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 6.0.35",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.35",
       "Pomelo.EntityFrameworkCore.MySql >= 6.0.2",
@@ -1012,6 +1061,9 @@
           "projectReferences": {
             "C:\\Projetos\\BookStore\\BookStore.Api\\BookStore.Api\\BookStore.Infra\\BookStore.Infra.csproj": {
               "projectPath": "C:\\Projetos\\BookStore\\BookStore.Api\\BookStore.Api\\BookStore.Infra\\BookStore.Infra.csproj"
+            },
+            "C:\\Projetos\\BookStore\\BookStore.Api\\BookStore.Api\\BookStore.Services\\BookStore.Services.csproj": {
+              "projectPath": "C:\\Projetos\\BookStore\\BookStore.Api\\BookStore.Api\\BookStore.Services\\BookStore.Services.csproj"
             }
           }
         }
@@ -1026,6 +1078,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "AutoMapper": {
+            "target": "Package",
+            "version": "[13.0.1, )"
+          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[6.0.35, )"

@@ -2,7 +2,7 @@ CREATE TABLE Livro
 (
 	Codl INT NOT NULL AUTO_INCREMENT,
 	Titulo VARCHAR(40),
-	Editoria VARCHAR(40),
+	Editora VARCHAR(40),
 	Edicao INTEGER,
 	AnoPublicacao VARCHAR(4),
 	
