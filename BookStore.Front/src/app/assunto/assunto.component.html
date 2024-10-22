@@ -1,8 +1,91 @@
-<h2>Cadastro de Assuntos</h2>
-<form>
-  <div>
-    <label for="descricao">Descrição:</label>
-    <input id="descricao" type="text" class="form-control">
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Assuntos</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+          <li class="breadcrumb-item active">Assuntos</li>
+        </ol>
+      </div>
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary">Salvar</button>
-</form>
+</div>
+
+<div class="content">
+  <div class="container-fluid">
+    <!-- Formulário de Filtro -->
+    <form (ngSubmit)="loadAssuntos()" class="mb-3">
+      <div class="form-row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Filtrar por Descrição" [(ngModel)]="filterDescricao"
+            name="filterDescricao">
+        </div>
+        <div class="col">
+          <button type="submit" class="btn btn-primary">Filtrar</button>&nbsp;&nbsp;
+          <button type="button" class="btn btn-success" (click)="openModal()">Novo Assunto</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="d-flex justify-content-center" *ngIf="isLoading">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Carregando...</span>
+      </div>
+    </div>
+
+    <!-- Tabela de Autores -->
+    <table class="table table-bordered" *ngIf="!isLoading">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Descrição</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let assunto of assuntos">
+          <td class="col-1">{{ assunto.codAssunto }}</td>
+          <td class="col-4">{{ assunto.descricao }}</td>
+          <td class="col-1">
+            <button class="btn btn-warning" (click)="openModal(assunto)" tooltip="Editar Assunto">
+              <i class="fas fa-edit"></i>
+            </button>&nbsp;&nbsp;
+            <button class="btn btn-danger" (click)="confirmDelete(assunto)" tooltip="Excluir Assunto">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalAssunto" tabindex="-1" role="dialog" aria-labelledby="modalAssuntoLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalAssuntoLabel">{{ isEditing ? 'Editar Assunto' : 'Novo Assunto' }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="assuntoForm" (ngSubmit)="saveAssunto()">
+              <div class="form-group">
+                <label for="descricao">Descricao</label>
+                <input type="text" id="descricao" formControlName="descricao" class="form-control" required>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Fechar</button>
+            <button type="submit" class="btn btn-primary" (click)="saveAssunto()">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
