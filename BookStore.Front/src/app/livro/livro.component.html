@@ -1,16 +1,112 @@
-<h2>Cadastro de Livros</h2>
-<form>
-  <div>
-    <label for="titulo">Título:</label>
-    <input id="titulo" type="text" class="form-control">
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Livros</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+          <li class="breadcrumb-item active">Livros</li>
+        </ol>
+      </div>
+    </div>
   </div>
-  <div>
-    <label for="autor">Autor:</label>
-    <input id="autor" type="text" class="form-control">
+</div>
+
+<div class="content">
+  <div class="container-fluid">
+    <!-- Formulário de Filtro -->
+    <form (ngSubmit)="loadLivros()" class="mb-3">
+      <div class="form-row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Filtrar por Título" [(ngModel)]="filterTitulo"
+            name="filterTitulo">
+        </div>
+        <div class="col">
+          <select class="form-control mb-2 mr-sm-2" [(ngModel)]="filterAutor" name="filterAutor">
+            <option value="">Selecione um Autor</option>
+            <option *ngFor="let autor of autores" [value]="autor.codAutor">{{ autor.nome }}</option>
+          </select>
+        </div>
+        <div class="col">
+          <button type="submit" class="btn btn-primary">Filtrar</button>&nbsp;&nbsp;
+          <button type="button" class="btn btn-success" (click)="openModal()">Novo Livro</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="d-flex justify-content-center" *ngIf="isLoading">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Carregando...</span>
+      </div>
+    </div>
+
+    <table class="table table-striped" *ngIf="!isLoading">
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Editora</th>
+          <!-- <th>Autores</th>
+          <th>Assuntos</th> -->
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let livro of livros">
+          <td>{{ livro.titulo }}</td>
+          <td>{{ livro.editora }}</td>
+          <!-- <td>{{ livro.autores.join(', ') }}</td>
+          <td>{{ livro.assuntos.join(', ') }}</td> -->
+          <td>
+            <button class="btn btn-warning btn-sm" (click)="openModal(true, livro)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="confirmDelete(livro)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalLivro" tabindex="-1" role="dialog" aria-labelledby="modalLivroLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLivroLabel">{{ isEditing ? 'Editar Livro' : 'Novo Livro' }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="livroForm">
+              <div class="form-group">
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" formControlName="titulo" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="editora">Editora</label>
+                <input type="text" id="editora" formControlName="editora" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="autores">Autores</label>
+                <input type="text" id="autores" formControlName="autores" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="assuntos">Assuntos</label>
+                <input type="text" id="assuntos" formControlName="assuntos" class="form-control" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">Fechar</button>
+            <button type="button" class="btn btn-primary" (click)="saveLivro()">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div>
-    <label for="assunto">Assunto:</label>
-    <input id="assunto" type="text" class="form-control">
-  </div>
-  <button type="submit" class="btn btn-primary">Salvar</button>
-</form>
+</div>
