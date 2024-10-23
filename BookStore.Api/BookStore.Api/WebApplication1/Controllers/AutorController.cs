@@ -4,6 +4,7 @@ using BookStore.Domain.Entity;
 using BookStore.Services.DTO;
 using BookStore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Api.Controllers
 {
@@ -78,9 +79,24 @@ namespace BookStore.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAutor(int id)
         {
-            await _autorService.DeleteAsync(id);
+            try
+            {
+                await _autorService.DeleteAsync(id);
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException != null)
+                {
+                    if (ex.InnerException.Message.ToUpper().Contains("FOREIGN KEY CONSTRAINT"))
+                    {
+                        return BadRequest("Não é possível excluir este autor, pois existem registros relacionados.");
+                    }
+                }
+
+                return StatusCode(500, "Ocorreu um erro ao tentar excluir o autor.");
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using BookStore.Api.Commands;
 using BookStore.Services.DTO;
 using BookStore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Api.Controllers
 {
@@ -94,8 +95,24 @@ namespace BookStore.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAssunto(int id)
         {
-            await _assuntoService.DeleteAsync(id);
-            return NoContent();
+            try
+            {
+                await _assuntoService.DeleteAsync(id);
+                
+                return NoContent();
+            }
+            catch (DbUpdateException ex)
+            {
+                if (ex.InnerException != null)
+                {
+                    if (ex.InnerException.Message.ToUpper().Contains("FOREIGN KEY CONSTRAINT"))
+                    {
+                        return BadRequest("Não é possível excluir este assunto, pois existem registros relacionados.");
+                    }
+                }
+
+                return StatusCode(500, "Ocorreu um erro ao tentar excluir o assunto.");
+            }
         }
     }
 }

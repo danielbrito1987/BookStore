@@ -83,10 +83,8 @@ namespace BookStore.Api.Controllers
             }
             catch (DbUpdateException ex)
             {
-                // Aqui você pode verificar o tipo de erro e retornar uma mensagem apropriada.
                 if (ex.InnerException != null)
                 {
-                    // Por exemplo, se for um erro de chave estrangeira.
                     if (ex.InnerException.Message.ToUpper().Contains("FOREIGN KEY CONSTRAINT"))
                     {
                         return BadRequest("Não é possível excluir este livro, pois existem registros relacionados.");
