@@ -1,13 +1,27 @@
-<h2>Relatório de Livros</h2>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Título</th>
-      <th>Autor</th>
-      <th>Assunto</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- Aqui você pode listar os dados -->
-  </tbody>
-</table>
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Relatório de Livros</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+          <li class="breadcrumb-item active">Livros</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="container-fluid">
+    <div class="d-flex justify-content-center" *ngIf="isLoading">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Carregando...</span>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-success" (click)="abrirRelatorio()" *ngIf="!isLoading">Gerar Relatório</button>
+  </div>
+</div>

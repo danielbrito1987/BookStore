@@ -30,12 +30,18 @@ export class LivroService {
             catchError((error: HttpErrorResponse) => {
                 let errorMessage = 'Ocorreu um erro ao tentar excluir o livro.';
 
-                if(error.status === 400) {
+                if (error.status === 400) {
                     errorMessage = error.error || errorMessage;
                 }
 
                 return throwError(errorMessage);
             })
         );
+    }
+
+    gerarRelatorio() {
+        const url = `${this.apiUrl}/GerarRelatorio`;
+
+        return this.http.get(url, { responseType: 'blob' });
     }
 }

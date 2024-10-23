@@ -49,8 +49,6 @@
           <th>Editora</th>
           <th>Ano de Publicação</th>
           <th>Edição</th>
-          <!-- <th>Autores</th>
-          <th>Assuntos</th> -->
           <th>Ações</th>
         </tr>
       </thead>
@@ -60,8 +58,6 @@
           <td>{{ livro.editora }}</td>
           <td>{{ livro.anoPublicacao }}</td>
           <td>{{ livro.edicao }}</td>
-          <!-- <td>{{ livro.autores.join(', ') }}</td>
-          <td>{{ livro.assuntos.join(', ') }}</td> -->
           <td>
             <button class="btn btn-warning btn-sm" (click)="openModal(true, livro)">
               <i class="fas fa-edit"></i>
