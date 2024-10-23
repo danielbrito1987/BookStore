@@ -14,8 +14,10 @@ namespace BookStore.Api.Setup
             CreateMap<Autor, AutorDto>().ReverseMap();
             CreateMap<Assunto, AssuntoDto>().ReverseMap();
             CreateMap<PrecoLivro, PrecoLivroDto>().ReverseMap();
-            CreateMap<PrecoLivroDto, UpdatePrecoCommand>().ReverseMap();
 
+            CreateMap<PrecoLivroDto, UpdatePrecoCommand>().ReverseMap();
+            CreateMap<LivroDto, CreateLivroCommand>().ReverseMap();
+            CreateMap<PrecoLivroDto, CreatePrecoCommand>().ReverseMap();
             CreateMap<AutorDto, CreateAutorCommand>().ReverseMap();
             CreateMap<AutorDto, UpdateAutorCommand>().ReverseMap();
             CreateMap<AssuntoDto, CreateAssuntoCommand>().ReverseMap();

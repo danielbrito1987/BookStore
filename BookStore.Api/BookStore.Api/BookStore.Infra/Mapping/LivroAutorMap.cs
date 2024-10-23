@@ -23,10 +23,12 @@ public class LivroAutorMap : IEntityTypeConfiguration<LivroAutor>
         // Configura as relações
         builder.HasOne(la => la.Livro)
             .WithMany(l => l.LivroAutores)
-            .HasForeignKey(la => la.CodLivro);
+            .HasForeignKey(la => la.CodLivro)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(la => la.Autor)
             .WithMany(a => a.LivroAutores)
-            .HasForeignKey(la => la.CodAutor);
+            .HasForeignKey(la => la.CodAutor)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

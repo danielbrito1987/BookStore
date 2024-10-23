@@ -36,7 +36,8 @@ namespace BookStore.Infra.Mapping
 
             builder.HasOne(la => la.Livro)
             .WithMany(l => l.Precos)
-            .HasForeignKey(la => la.CodLivro);
+            .HasForeignKey(la => la.CodLivro)
+            .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -4,6 +4,7 @@ using BookStore.Domain.DTO;
 using BookStore.Domain.Entity;
 using BookStore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Api.Controllers
 {
@@ -42,12 +43,14 @@ namespace BookStore.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBook([FromBody]LivroDto livroDto)
+        public async Task<IActionResult> AddBook([FromBody] CreateLivroCommand command)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            var livroDto = _mapper.Map<LivroDto>(command);
 
             var livro = await _service.AddLivroAsync(livroDto);
 
@@ -72,9 +75,26 @@ namespace BookStore.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBook(int id)
         {
-            await _service.DeleteLivroAsync(id);
+            try
+            {
+                await _service.DeleteLivroAsync(id);
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (DbUpdateException ex)
+            {
+                // Aqui você pode verificar o tipo de erro e retornar uma mensagem apropriada.
+                if (ex.InnerException != null)
+                {
+                    // Por exemplo, se for um erro de chave estrangeira.
+                    if (ex.InnerException.Message.ToUpper().Contains("FOREIGN KEY CONSTRAINT"))
+                    {
+                        return BadRequest("Não é possível excluir este livro, pois existem registros relacionados.");
+                    }
+                }
+
+                return StatusCode(500, "Ocorreu um erro ao tentar excluir o livro.");
+            }
         }
     }
 }

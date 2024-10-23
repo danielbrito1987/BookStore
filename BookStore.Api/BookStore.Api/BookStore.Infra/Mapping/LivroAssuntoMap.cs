@@ -22,10 +22,12 @@ public class LivroAssuntoMap : IEntityTypeConfiguration<LivroAssunto>
         // Configurando relacionamento muitos para muitos
         builder.HasOne(la => la.Livro)
             .WithMany(l => l.LivroAssuntos)
-            .HasForeignKey(la => la.CodLivro);
+            .HasForeignKey(la => la.CodLivro)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(la => la.Assunto)
             .WithMany(a => a.LivroAssuntos)
-            .HasForeignKey(la => la.CodAssunto);
+            .HasForeignKey(la => la.CodAssunto)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
