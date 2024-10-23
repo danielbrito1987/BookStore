@@ -81,7 +81,6 @@ export class LivroComponent implements OnInit {
       this.livros = data.filter(livro => {
         const matchTitulo = !this.filterTitulo || livro.titulo.toLowerCase().includes(this.filterTitulo.toLowerCase());
         const matchAutor = !this.filterAutor || livro.autoresIds.includes(Number(this.filterAutor));
-        //const matchAssunto = !this.filterAssunto || livro.assuntosIds.includes(this.filterAssunto);
 
         return matchTitulo && matchAutor;
       });
