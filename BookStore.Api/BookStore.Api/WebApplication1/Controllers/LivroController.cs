@@ -37,7 +37,7 @@ namespace BookStore.Api.Controllers
             
             if (book == null)
             {
-                return NotFound();
+                return BadRequest("Livro não encontrado!");
             }
 
             return Ok(book);
@@ -68,7 +68,12 @@ namespace BookStore.Api.Controllers
 
             var livro = _mapper.Map<LivroDto>(command);
 
-            await _service.UpdateLivroAsync(livro);
+            var msg = await _service.UpdateLivroAsync(livro);
+
+            if (msg != "OK")
+            {
+                return BadRequest(msg);
+            }
 
             return NoContent();
         }
@@ -78,7 +83,12 @@ namespace BookStore.Api.Controllers
         {
             try
             {
-                await _service.DeleteLivroAsync(id);
+                var msg = await _service.DeleteLivroAsync(id);
+
+                if(msg != "OK")
+                {
+                    return BadRequest(msg);
+                }
 
                 return NoContent();
             }

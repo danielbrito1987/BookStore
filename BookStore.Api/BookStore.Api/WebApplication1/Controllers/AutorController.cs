@@ -37,7 +37,7 @@ namespace BookStore.Api.Controllers
             var autor = await _autorService.GetByIdAsync(id);
             if (autor == null)
             {
-                return NotFound();
+                return BadRequest("Autor não encontrado!");
             }
 
             return Ok(autor);
@@ -70,7 +70,12 @@ namespace BookStore.Api.Controllers
 
             var autorDto = _mapper.Map<AutorDto>(command);
 
-            await _autorService.UpdateAsync(autorDto);
+            var msg = await _autorService.UpdateAsync(autorDto);
+
+            if(msg != "OK")
+            {
+                return BadRequest(msg);
+            }
 
             return NoContent();
         }
@@ -81,7 +86,12 @@ namespace BookStore.Api.Controllers
         {
             try
             {
-                await _autorService.DeleteAsync(id);
+                var msg = await _autorService.DeleteAsync(id);
+
+                if (msg != "OK")
+                {
+                    return BadRequest(msg);
+                }
 
                 return NoContent();
             }

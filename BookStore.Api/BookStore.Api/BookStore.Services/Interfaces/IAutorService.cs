@@ -14,7 +14,7 @@ namespace BookStore.Services.Interfaces
         Task<IEnumerable<AutorDto>> GetAllAsync();
         Task<AutorDto> GetByIdAsync(int id);
         Task AddAsync(AutorDto autor);
-        Task UpdateAsync(AutorDto autor);
-        Task DeleteAsync(int id);
+        Task<string> UpdateAsync(AutorDto autor);
+        Task<string> DeleteAsync(int id);
     }
 }

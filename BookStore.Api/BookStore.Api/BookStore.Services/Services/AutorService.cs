@@ -38,7 +38,7 @@ namespace BookStore.Services.Services
             await _autorRepository.SaveAsync();
         }
 
-        public async Task UpdateAsync(AutorDto autor)
+        public async Task<string> UpdateAsync(AutorDto autor)
         {
             var autorExptcted = await _autorRepository.GetByIdAsync(autor.CodAutor);
 
@@ -46,10 +46,16 @@ namespace BookStore.Services.Services
             {
                 _autorRepository.Update(_mapper.Map<Autor>(autor));
                 await _autorRepository.SaveAsync();
+
+                return "OK";
+            }
+            else
+            {
+                return "Erro ao alterar o autor! Não existe autor associado ao código informado.";
             }
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<string> DeleteAsync(int id)
         {
             var autor = await _autorRepository.GetByIdAsync(id);
 
@@ -57,6 +63,12 @@ namespace BookStore.Services.Services
             {
                 _autorRepository.Delete(autor);
                 await _autorRepository.SaveAsync();
+
+                return "OK";
+            }
+            else
+            {
+                return "Erro ao excluir o autor! Não existe autor associado ao código.";
             }
         }
     }

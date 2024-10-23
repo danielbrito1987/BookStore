@@ -58,7 +58,7 @@ namespace BookStore.Servuces.Services
             return _mapper.Map<LivroDto>(livro);
         }
 
-        public async Task UpdateLivroAsync(LivroDto livroDto)
+        public async Task<string> UpdateLivroAsync(LivroDto livroDto)
         {
             var livroExpected = await _repository.GetByIdAsync(livroDto.CodLivro);
 
@@ -68,10 +68,16 @@ namespace BookStore.Servuces.Services
 
                 _repository.Update(livro);
                 await _repository.SaveAsync();
+
+                return "OK";
+            }
+            else
+            {
+                return "Erro ao alterar o livro! Não existe livro associado ao código informado.";
             }
         }
 
-        public async Task DeleteLivroAsync(int id)
+        public async Task<string> DeleteLivroAsync(int id)
         {
             var livro = await _repository.GetByIdAsync(id);
             if (livro != null)
@@ -79,6 +85,12 @@ namespace BookStore.Servuces.Services
 
                 _repository.Delete(livro);
                 await _repository.SaveAsync();
+
+                return "OK";
+            }
+            else
+            {
+                return "Erro ao excluir o livro! Não existe livro associado ao código.";
             }
         }
 

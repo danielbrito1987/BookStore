@@ -38,7 +38,7 @@ namespace BookStore.Services.Services
             await _assuntoRepository.SaveAsync();
         }
 
-        public async Task UpdateAsync(AssuntoDto assunto)
+        public async Task<string> UpdateAsync(AssuntoDto assunto)
         {
             var assuntoExpcted = await _assuntoRepository.GetByIdAsync(assunto.CodAssunto);
 
@@ -46,10 +46,16 @@ namespace BookStore.Services.Services
             {
                 _assuntoRepository.Update(_mapper.Map<Assunto>(assunto));
                 await _assuntoRepository.SaveAsync();
+
+                return "OK";
+            }
+            else
+            {
+                return "Erro ao alterar o assunto! Não existe assunto associado ao código.";
             }
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<string> DeleteAsync(int id)
         {
             var assunto = await _assuntoRepository.GetByIdAsync(id);
 
@@ -57,6 +63,12 @@ namespace BookStore.Services.Services
             {
                 _assuntoRepository.Delete(assunto);
                 await _assuntoRepository.SaveAsync();
+
+                return "OK";
+            }
+            else
+            {
+                return "Erro ao excluir o assunto! Não existe assunto associado ao código.";
             }
         }
     }

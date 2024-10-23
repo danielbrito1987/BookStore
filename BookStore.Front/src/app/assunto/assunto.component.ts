@@ -88,11 +88,17 @@ export class AssuntoComponent implements OnInit {
         this.assuntoService.update(this.assuntoForm.value).subscribe(() => {
           this.toastr.success('Assunto alterado com sucesso!');
           this.loadAssuntos();
+        }, (error) => {
+          this.isLoading = false;
+          this.toastr.error(error);
         });
       } else {
         this.assuntoService.create(this.assuntoForm.value).subscribe(() => {
           this.toastr.success('Assunto cadastrado com sucesso!');
           this.loadAssuntos();
+        }, (error) => {
+          this.isLoading = false;
+          this.toastr.error(error);
         });
       }
 

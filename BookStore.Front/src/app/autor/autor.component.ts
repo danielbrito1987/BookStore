@@ -88,11 +88,17 @@ export class AutorComponent implements OnInit {
         this.authorService.update(this.autorForm.value).subscribe(() => {
           this.toastr.success('Autor alterado com sucesso!');
           this.loadAutores();
+        }, (error) => {
+          this.isLoading = false;
+          this.toastr.error(error);
         });
       } else {
         this.authorService.create(this.autorForm.value).subscribe(() => {
           this.toastr.success('Autor cadastrado com sucesso!');
           this.loadAutores();
+        }, (error) => {
+          this.isLoading = false;
+          this.toastr.error(error);
         });
       }
 

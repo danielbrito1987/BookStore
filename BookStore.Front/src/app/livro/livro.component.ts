@@ -163,6 +163,9 @@ export class LivroComponent implements OnInit {
           this.livroService.update(this.livroForm.value).subscribe((data) => {
             this.toastr.success('Livro alterado com sucesso!');
             this.loadLivros();
+          }, (error) => {
+            this.isLoading = false;
+            this.toastr.error(error);
           })
         } else {
           this.livroService.create(this.livroForm.value).subscribe((data) => {

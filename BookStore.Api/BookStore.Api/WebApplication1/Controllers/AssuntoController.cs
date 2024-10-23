@@ -42,7 +42,7 @@ namespace BookStore.Api.Controllers
             var autor = await _assuntoService.GetByIdAsync(id);
             if (autor == null)
             {
-                return NotFound();
+                return BadRequest("Assunto não encontrado!");
             }
             return Ok(autor);
         }
@@ -83,7 +83,13 @@ namespace BookStore.Api.Controllers
 
             var assunto = _mapper.Map<AssuntoDto>(command);
 
-            await _assuntoService.UpdateAsync(assunto);
+            var msg = await _assuntoService.UpdateAsync(assunto);
+
+            if (msg != "OK")
+            {
+                return BadRequest(msg);
+            }
+
             return NoContent();
         }
 
@@ -97,8 +103,13 @@ namespace BookStore.Api.Controllers
         {
             try
             {
-                await _assuntoService.DeleteAsync(id);
-                
+                var msg = await _assuntoService.DeleteAsync(id);
+
+                if (msg != "OK")
+                {
+                    return BadRequest(msg);
+                }
+
                 return NoContent();
             }
             catch (DbUpdateException ex)
