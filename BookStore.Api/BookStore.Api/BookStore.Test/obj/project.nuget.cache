@@ -1,10 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "R1Cr2GT5zf5zwlvaq+LqXZDQwGrYH1BECDQe2dpA6A6Pqu9rUiJwp24LJ/8KaRggUTJjC6ZoxF3KSx2itXXCIA==",
+  "dgSpecHash": "tTK080S2dtz+RjKM9BwbpT52XJUXhCaGB/mQ/V5sWz9Q0ze10cw1DCM8OT2slsrwtvWaCgR01O8DEnLDKVAMlw==",
   "success": true,
   "projectFilePath": "C:\\Projetos\\BookStore\\BookStore.Api\\BookStore.Api\\BookStore.Test\\BookStore.Test.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\bouncycastle.cryptography\\2.4.0\\bouncycastle.cryptography.2.4.0.nupkg.sha512",
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\itextsharp\\5.5.13.4\\itextsharp.5.5.13.4.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.35\\microsoft.entityframeworkcore.6.0.35.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.35\\microsoft.entityframeworkcore.abstractions.6.0.35.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.35\\microsoft.entityframeworkcore.analyzers.6.0.35.nupkg.sha512",
@@ -20,11 +24,32 @@
     "C:\\Users\\daniel.brito\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.4\\microsoft.extensions.logging.abstractions.6.0.4.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\moq\\4.20.72\\moq.4.20.72.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\mysqlconnector\\2.1.2\\mysqlconnector.2.1.2.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\6.0.2\\pomelo.entityframeworkcore.mysql.6.0.2.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.1\\system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",
-    "C:\\Users\\daniel.brito\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512",
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\xunit\\2.9.2\\xunit.2.9.2.nupkg.sha512",
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\xunit.abstractions\\2.0.3\\xunit.abstractions.2.0.3.nupkg.sha512",
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\xunit.analyzers\\1.16.0\\xunit.analyzers.1.16.0.nupkg.sha512",
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\xunit.assert\\2.9.2\\xunit.assert.2.9.2.nupkg.sha512",
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\xunit.core\\2.9.2\\xunit.core.2.9.2.nupkg.sha512",
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\xunit.extensibility.core\\2.9.2\\xunit.extensibility.core.2.9.2.nupkg.sha512",
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\xunit.extensibility.execution\\2.9.2\\xunit.extensibility.execution.2.9.2.nupkg.sha512",
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\xunit.runner.visualstudio\\2.8.2\\xunit.runner.visualstudio.2.8.2.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'iTextSharp 5.5.13.4' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' em vez da estrutura de destino do projeto 'net6.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "libraryId": "iTextSharp",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }
