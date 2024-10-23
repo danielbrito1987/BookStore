@@ -50,5 +50,15 @@ Para executar o projeto localmente, siga as instruções abaixo:
 1. Clone o repositório:
 
    ```bash
-   git clone https://github.com/username/repo.git
+   git clone https://github.com/danielbrito1987/BookStore.git
    cd repo
+
+2. Instale as dependências do projeto:
+   ```bash
+   npm install
+
+3. Execute o servidor de desenvolvimento:
+   ```bash
+   ng serve
+
+4. Acesse a aplicação em seu navegador em http://localhost:4200.
