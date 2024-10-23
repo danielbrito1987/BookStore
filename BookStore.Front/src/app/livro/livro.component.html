@@ -76,7 +76,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="modalLivro" tabindex="-1" aria-labelledby="modalLivroLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
+      <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">{{ isEditing ? 'Editar Livro' : 'Novo Livro' }}</h5>
@@ -113,6 +113,26 @@
                 <select class="form-control" formControlName="assuntosIds" multiple>
                   <option *ngFor="let assunto of assuntos" [value]="assunto.codAssunto">{{ assunto.descricao }}</option>
                 </select>
+              </div>
+              <div formArrayName="precos">
+                <div *ngFor="let preco of precos.controls; let i = index" [formGroupName]="i" class="form-group">
+                  <label>Tipo de Compra:</label>
+                  <select class="form-control mb-2 mr-sm-2" formControlName="tipoCompra">
+                    <option value="">Selecione um Tipo de Compra</option>
+                    <option value="1">Balcão</option>
+                    <option value="2">Internet</option>
+                    <option value="3">Eventos</option>
+                    <option value="4">Outros</option>
+                  </select>
+
+                  <label>Valor (R$):</label>
+                  <input type="text" class="form-control" formControlName="valor" mask="separator.2" prefix="R$ "
+                    (ngModelChange)="onPrecoChange($event)" placeholder="Valor" />
+
+                  <button (click)="removerPreco(i)" type="button" class="btn btn-danger">Remover</button>
+                </div>
+                <button (click)="adicionarPreco()" type="button" class="btn btn-primary mt-2">Adicionar Tipo de
+                  Compra</button>
               </div>
               <button type="submit" class="btn btn-primary">Salvar</button>
             </form>

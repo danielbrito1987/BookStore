@@ -43,5 +43,13 @@ CREATE TABLE Livro_Assunto
 	FOREIGN KEY (Assunto_CodAs) REFERENCES Assunto(CodAs)
 )
 
-
-
+CREATE TABLE Preco_Livro
+(
+	CodPreco INT NOT NULL AUTO_INCREMENT,
+	Livro_Codl INT NOT NULL,
+	TipoCompra INT NOT NULL,
+	Valor DECIMAL(10,2) NOT NULL,
+	
+	PRIMARY KEY (CodPreco),
+	FOREIGN KEY (Livro_Codl) REFERENCES Livro(Codl)
+) 

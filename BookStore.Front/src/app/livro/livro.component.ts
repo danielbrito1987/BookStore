@@ -1,9 +1,11 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
 import { Assunto } from 'src/models/assunto.model';
 import { Autor } from 'src/models/autor.model';
 import { Livro } from 'src/models/livro.model';
+import { PrecoLivro } from 'src/models/preco-livro.model';
 import { AssuntoService } from 'src/services/assunto.service';
 import { AutorService } from 'src/services/autor.service';
 import { LivroService } from 'src/services/livro.service';
@@ -11,7 +13,8 @@ import { LivroService } from 'src/services/livro.service';
 @Component({
   selector: 'app-livro',
   templateUrl: './livro.component.html',
-  styleUrls: ['./livro.component.css']
+  styleUrls: ['./livro.component.css'],
+  providers: [CurrencyPipe]
 })
 export class LivroComponent implements OnInit {
   isLoading = false;
@@ -23,6 +26,7 @@ export class LivroComponent implements OnInit {
   autores: Autor[] = [];
   assuntos: Assunto[] = [];
   isEditing: boolean = false;
+  precoValue: string = "";
 
   constructor(
     private fb: FormBuilder,
@@ -36,6 +40,7 @@ export class LivroComponent implements OnInit {
       editora: ['', Validators.required],
       anoPublicacao: ['', Validators.required],
       edicao: ['', Validators.required],
+      precos: this.fb.array([]),
       autoresIds: [[], Validators.required],
       assuntosIds: [[], Validators.required]
     });
@@ -45,6 +50,10 @@ export class LivroComponent implements OnInit {
     this.loadAssuntos();
     this.loadAutores();
     this.loadLivros();
+  }
+
+  get precos(): FormArray {
+    return this.livroForm.get('precos') as FormArray;
   }
 
   loadAutores() {
@@ -94,7 +103,15 @@ export class LivroComponent implements OnInit {
           anoPublicacao: livro.anoPublicacao,
           edicao: livro.edicao,
           autoresIds: livro.autoresIds,
-          assuntosIds: livro.assuntosIds
+          assuntosIds: livro.assuntosIds,
+          precos: livro.precos
+        });
+        const precosArray = this.livroForm.get('precos') as FormArray;
+        livro.precos.forEach(preco => {
+          precosArray.push(this.fb.group({
+            tipoCompra: preco.tipoCompra,
+            valor: preco.valor
+          }));
         });
       } else {
         this.livroForm.reset();
@@ -113,6 +130,9 @@ export class LivroComponent implements OnInit {
       const modal = bootstrap.Modal.getInstance(modalElement); // Obter a instância da modal
       if (modal) {
         modal.hide();
+
+        this.livroForm.reset();
+        this.livroForm.setControl('precos', this.fb.array([]));
       } else {
         console.error('Modal instance not found');
       }
@@ -125,6 +145,14 @@ export class LivroComponent implements OnInit {
     this.isLoading = true;
 
     if (this.livroForm.valid) {
+      const livroData = this.livroForm.value;
+
+      livroData.precos.forEach((preco: any) => {
+        preco.codLivro = this.livroForm.value.codLivro;
+        preco.tipoCompra = Number(preco.tipoCompra);
+        preco.valor = parseFloat(preco.valor.replace(',', '.'));
+      });
+
       if (this.isEditing) {
         this.livroService.update(this.livroForm.value).subscribe((data) => {
           this.loadLivros();
@@ -138,14 +166,34 @@ export class LivroComponent implements OnInit {
     }
   }
 
-  confirmDelete(livro: any) {
+  confirmDelete(livro: Livro) {
     const confirmDelete = confirm('Tem certeza que deseja excluir este livro?');
     if (confirmDelete) {
-      // this.isLoading = true;
+      this.isLoading = true;
 
-      // this.assuntoService.delete(assunto.codAssunto).subscribe(() => {
-      //   this.loadAssuntos();
-      // });
+      this.livroService.delete(livro.codLivro).subscribe(() => {
+        this.loadLivros();
+      })
     }
+  }
+
+  adicionarPreco() {
+    const tipoCompraForm = this.fb.group({
+      codLivro: [''],
+      valor: [''],
+      tipoCompra: ['']
+    });
+
+    this.precos.push(tipoCompraForm); // Adiciona o FormGroup ao FormArray
+  }
+
+  removerPreco(index: number) {
+    const precosArray = this.livroForm.get('precos') as FormArray;
+    precosArray.removeAt(index);
+  }
+
+  onPrecoChange(value: string) {
+    // Aqui você pode formatar o valor, se necessário
+    this.precoValue = value.replace('R$', '').trim(); // Se precisar remover a string "R$"
   }
 }

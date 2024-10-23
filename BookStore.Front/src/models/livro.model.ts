@@ -1,3 +1,5 @@
+import { PrecoLivro } from "./preco-livro.model";
+
 export interface Livro {
     codLivro: number;
     titulo: string;
@@ -6,4 +8,5 @@ export interface Livro {
     anoPublicacao: string;
     autoresIds: number[];
     assuntosIds: number[];
+    precos: PrecoLivro[];
 }
