@@ -10,5 +10,6 @@ namespace BookStore.Infra.Interfaces
     public interface ILivroRepository : IBaseRepository<Livro>
     {
         Task<IEnumerable<Livro>> GetLivrosWithAuthorsAsync();
+        IList<LivroReport> ObterDadosRelatorio();
     }
 }

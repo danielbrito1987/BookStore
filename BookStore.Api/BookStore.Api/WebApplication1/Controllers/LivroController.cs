@@ -94,5 +94,13 @@ namespace BookStore.Api.Controllers
                 return StatusCode(500, "Ocorreu um erro ao tentar excluir o livro.");
             }
         }
+
+        [HttpGet("GerarRelatorio")]
+        public async Task<IActionResult> GerarRelatorio()
+        {
+            var relatorio = await _service.GerarRelatorioPDF();
+
+            return File(relatorio, "application/pdf", "RelatorioLivros.pdf");
+        }
     }
 }

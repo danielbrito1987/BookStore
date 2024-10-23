@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "Fg5sIbYKdrAiy9g8RRhSNrhEeQVdGi3X0CG+mEeHT2TdUEhPCBobzKhR4EzRocYddloK09R/Chk3Lb9bDqI/QQ==",
+  "dgSpecHash": "p/ikC7ctPkBcDsVHZhSo5lR697v/Pa7HrMUUWlSnYLefU4MhQOQqtgWuxP/5NwEHV+tSAWt12adsBR9xtBj3Ow==",
   "success": true,
   "projectFilePath": "C:\\Projetos\\BookStore\\BookStore.Api\\BookStore.Api\\WebApplication1\\BookStore.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\daniel.brito\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\bouncycastle.cryptography\\2.4.0\\bouncycastle.cryptography.2.4.0.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\daniel.brito\\.nuget\\packages\\itextsharp\\5.5.13.4\\itextsharp.5.5.13.4.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.35\\microsoft.entityframeworkcore.6.0.35.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.35\\microsoft.entityframeworkcore.abstractions.6.0.35.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.35\\microsoft.entityframeworkcore.analyzers.6.0.35.nupkg.sha512",
@@ -33,5 +35,16 @@
     "C:\\Users\\daniel.brito\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.1\\system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",
     "C:\\Users\\daniel.brito\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'iTextSharp 5.5.13.4' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' em vez da estrutura de destino do projeto 'net6.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "libraryId": "iTextSharp",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

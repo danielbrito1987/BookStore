@@ -1,4 +1,5 @@
 C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Test\bin\Debug\net6.0\BookStore.Test.deps.json
+C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Test\bin\Debug\net6.0\BookStore.Test.runtimeconfig.json
 C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Test\bin\Debug\net6.0\BookStore.Test.dll
 C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Test\bin\Debug\net6.0\BookStore.Test.pdb
 C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Test\obj\Debug\net6.0\BookStore.Test.csproj.AssemblyReference.cache
@@ -9,6 +10,5 @@ C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Test\obj\Debug\net6.
 C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Test\obj\Debug\net6.0\BookStore.Test.dll
 C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Test\obj\Debug\net6.0\refint\BookStore.Test.dll
 C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Test\obj\Debug\net6.0\BookStore.Test.pdb
-C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Test\obj\Debug\net6.0\ref\BookStore.Test.dll
-C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Test\bin\Debug\net6.0\BookStore.Test.runtimeconfig.json
 C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Test\obj\Debug\net6.0\BookStore.Test.genruntimeconfig.cache
+C:\Projetos\BookStore\BookStore.Api\BookStore.Api\BookStore.Test\obj\Debug\net6.0\ref\BookStore.Test.dll
