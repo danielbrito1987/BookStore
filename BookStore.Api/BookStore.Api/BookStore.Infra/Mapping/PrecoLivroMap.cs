@@ -13,10 +13,10 @@ namespace BookStore.Infra.Mapping
     {
         public void Configure(EntityTypeBuilder<PrecoLivro> builder)
         {
-            builder.ToTable("PrecoLivro");
+            builder.ToTable("Preco_Livro");
 
             // Definindo a chave primária composta
-            builder.HasKey(la => new { la.CodPreco, la.CodLivro });
+            builder.HasKey(la => la.CodPreco);
 
             builder.Property(la => la.CodLivro)
                 .HasColumnName("Livro_Codl")

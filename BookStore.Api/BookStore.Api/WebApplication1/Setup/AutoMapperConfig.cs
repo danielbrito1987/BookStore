@@ -13,11 +13,15 @@ namespace BookStore.Api.Setup
             // Mapeamento entre Autor e AutorDTO
             CreateMap<Autor, AutorDto>().ReverseMap();
             CreateMap<Assunto, AssuntoDto>().ReverseMap();
+            CreateMap<PrecoLivro, PrecoLivroDto>().ReverseMap();
+            CreateMap<PrecoLivroDto, UpdatePrecoCommand>().ReverseMap();
+
             CreateMap<AutorDto, CreateAutorCommand>().ReverseMap();
             CreateMap<AutorDto, UpdateAutorCommand>().ReverseMap();
             CreateMap<AssuntoDto, CreateAssuntoCommand>().ReverseMap();
             CreateMap<AssuntoDto, UpdateAssuntoCommand>().ReverseMap();
-
+            CreateMap<LivroDto, UpdateLivroCommand>().ReverseMap();
+            
             CreateMap<LivroAutor, LivroAutorDto>()
                     .ForMember(x => x.NomeAutor, y => y.MapFrom(m => m.Autor.Nome))
                     .ReverseMap();

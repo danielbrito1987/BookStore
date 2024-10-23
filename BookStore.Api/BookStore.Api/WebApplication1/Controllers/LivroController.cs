@@ -1,4 +1,6 @@
-﻿using BookStore.Domain.DTO;
+﻿using AutoMapper;
+using BookStore.Api.Commands;
+using BookStore.Domain.DTO;
 using BookStore.Domain.Entity;
 using BookStore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +12,12 @@ namespace BookStore.Api.Controllers
     public class LivroController : ControllerBase
     {
         private readonly ILivroService _service;
+        private readonly IMapper _mapper;
 
-        public LivroController(ILivroService service)
+        public LivroController(ILivroService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -51,12 +55,14 @@ namespace BookStore.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateBook(int id, [FromBody]LivroDto livro)
+        public async Task<IActionResult> UpdateBook(int id, [FromBody]UpdateLivroCommand command)
         {
-            if (id != livro.CodLivro || !ModelState.IsValid)
+            if (id != command.CodLivro || !ModelState.IsValid)
             {
                 return BadRequest();
             }
+
+            var livro = _mapper.Map<LivroDto>(command);
 
             await _service.UpdateLivroAsync(livro);
 

@@ -67,6 +67,7 @@ namespace BookStore.Servuces.Services
             var livro = await _repository.GetByIdAsync(id);
             if (livro != null)
             {
+
                 _repository.Delete(livro);
                 await _repository.SaveAsync();
             }

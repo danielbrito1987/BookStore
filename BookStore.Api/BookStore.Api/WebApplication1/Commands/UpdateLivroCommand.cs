@@ -1,14 +1,6 @@
-﻿using BookStore.Services.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-
-namespace BookStore.Domain.DTO
+﻿namespace BookStore.Api.Commands
 {
-    public class LivroDto
+    public class UpdateLivroCommand
     {
         public int CodLivro { get; set; }
         public string Titulo { get; set; }
@@ -18,6 +10,6 @@ namespace BookStore.Domain.DTO
 
         public List<int> AutoresIds { get; set; }
         public List<int> AssuntosIds { get; set; }
-        public List<PrecoLivroDto> Precos { get; set; }
+        public List<UpdatePrecoCommand> Precos { get; set; }
     }
 }

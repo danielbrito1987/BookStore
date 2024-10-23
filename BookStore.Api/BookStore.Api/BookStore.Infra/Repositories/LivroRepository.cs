@@ -22,6 +22,7 @@ namespace BookStore.Infra.Repositories
         public async Task<IEnumerable<Livro>> GetLivrosWithAuthorsAsync()
         {
             return await _context.Livros
+                .Include(p => p.Precos)
                 .Include(a => a.LivroAssuntos)
                 .Include(b => b.LivroAutores)
                 .ThenInclude(la => la.Autor)
