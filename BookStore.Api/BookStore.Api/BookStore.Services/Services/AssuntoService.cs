@@ -40,17 +40,22 @@ namespace BookStore.Services.Services
 
         public async Task UpdateAsync(AssuntoDto assunto)
         {
-            _assuntoRepository.Update(_mapper.Map<Assunto>(assunto));
-            await _assuntoRepository.SaveAsync();
+            var assuntoExpcted = await _assuntoRepository.GetByIdAsync(assunto.CodAssunto);
+
+            if(assuntoExpcted != null)
+            {
+                _assuntoRepository.Update(_mapper.Map<Assunto>(assunto));
+                await _assuntoRepository.SaveAsync();
+            }
         }
 
         public async Task DeleteAsync(int id)
         {
-            var autor = await _assuntoRepository.GetByIdAsync(id);
+            var assunto = await _assuntoRepository.GetByIdAsync(id);
 
-            if (autor != null)
+            if (assunto != null)
             {
-                _assuntoRepository.Delete(autor);
+                _assuntoRepository.Delete(assunto);
                 await _assuntoRepository.SaveAsync();
             }
         }

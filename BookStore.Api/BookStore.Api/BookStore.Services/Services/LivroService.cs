@@ -60,10 +60,15 @@ namespace BookStore.Servuces.Services
 
         public async Task UpdateLivroAsync(LivroDto livroDto)
         {
-            var livro = _mapper.Map<Livro>(livroDto);
+            var livroExpected = await _repository.GetByIdAsync(livroDto.CodLivro);
 
-            _repository.Update(livro);
-            await _repository.SaveAsync();
+            if (livroExpected != null)
+            {
+                var livro = _mapper.Map<Livro>(livroDto);
+
+                _repository.Update(livro);
+                await _repository.SaveAsync();
+            }
         }
 
         public async Task DeleteLivroAsync(int id)

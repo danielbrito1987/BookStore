@@ -40,8 +40,13 @@ namespace BookStore.Services.Services
 
         public async Task UpdateAsync(AutorDto autor)
         {
-            _autorRepository.Update(_mapper.Map<Autor>(autor));
-            await _autorRepository.SaveAsync();
+            var autorExptcted = await _autorRepository.GetByIdAsync(autor.CodAutor);
+
+            if(autorExptcted != null)
+            {
+                _autorRepository.Update(_mapper.Map<Autor>(autor));
+                await _autorRepository.SaveAsync();
+            }
         }
 
         public async Task DeleteAsync(int id)
