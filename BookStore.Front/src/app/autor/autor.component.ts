@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Autor } from 'src/models/autor.model';
 import { AutorService } from 'src/services/autor.service';
+import { ToastrService } from 'ngx-toastr';
 import * as bootstrap from 'bootstrap';
 
 @Component({
@@ -19,6 +20,7 @@ export class AutorComponent implements OnInit {
 
   constructor(
     private authorService: AutorService,
+    private toastr: ToastrService,
     private fb: FormBuilder
   ) {
     this.autorForm = this.fb.group({
@@ -84,10 +86,12 @@ export class AutorComponent implements OnInit {
 
       if (this.isEditing) {
         this.authorService.update(this.autorForm.value).subscribe(() => {
+          this.toastr.success('Autor alterado com sucesso!');
           this.loadAutores();
         });
       } else {
         this.authorService.create(this.autorForm.value).subscribe(() => {
+          this.toastr.success('Autor cadastrado com sucesso!');
           this.loadAutores();
         });
       }
@@ -102,7 +106,11 @@ export class AutorComponent implements OnInit {
       this.isLoading = true;
 
       this.authorService.delete(autor.codAutor).subscribe(() => {
+        this.toastr.success('Autor excluído com sucesso!');
         this.loadAutores();
+      }, (error) => {
+        this.isLoading = false;
+        this.toastr.error(error);
       });
     }
   }

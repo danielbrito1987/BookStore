@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Assunto } from 'src/models/assunto.model';
 import { AssuntoService } from 'src/services/assunto.service';
 import * as bootstrap from 'bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-assunto',
@@ -18,6 +19,7 @@ export class AssuntoComponent implements OnInit {
   filterDescricao: string = '';
 
   constructor(
+    private toastr: ToastrService,
     private assuntoService: AssuntoService,
     private fb: FormBuilder
   ) {
@@ -84,10 +86,12 @@ export class AssuntoComponent implements OnInit {
 
       if (this.isEditing) {
         this.assuntoService.update(this.assuntoForm.value).subscribe(() => {
+          this.toastr.success('Assunto alterado com sucesso!');
           this.loadAssuntos();
         });
       } else {
         this.assuntoService.create(this.assuntoForm.value).subscribe(() => {
+          this.toastr.success('Assunto cadastrado com sucesso!');
           this.loadAssuntos();
         });
       }
@@ -102,7 +106,11 @@ export class AssuntoComponent implements OnInit {
       this.isLoading = true;
 
       this.assuntoService.delete(assunto.codAssunto).subscribe(() => {
+        this.toastr.success('Assunto excluído com sucesso!');
         this.loadAssuntos();
+      }, (error) => {
+        this.isLoading = false;
+        this.toastr.error(error);
       });
     }
   }

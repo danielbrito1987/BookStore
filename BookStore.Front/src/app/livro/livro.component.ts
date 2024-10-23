@@ -143,10 +143,6 @@ export class LivroComponent implements OnInit {
     }
   }
 
-  showToastr() {
-    this.toastr.success('Livro alterado com sucesso!');
-  }
-
   saveLivro() {
     Object.keys(this.livroForm.controls).forEach(control => {
       this.livroForm.get(control)?.markAsTouched();

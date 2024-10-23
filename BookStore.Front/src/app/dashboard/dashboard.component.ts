@@ -9,6 +9,7 @@ import { DashboardService } from 'src/services/dashboard.service';
 })
 export class DashboardComponent implements OnInit {
   public dashboard: Dashboard;
+  public isLoading: boolean = false;
 
   constructor(
     private dashboardService: DashboardService
@@ -21,8 +22,10 @@ export class DashboardComponent implements OnInit {
   }
 
   getDashboard() {
+    this.isLoading = true;
     this.dashboardService.getDashboard().subscribe((data) => {
       this.dashboard = data;
+      this.isLoading = false;
     })
   }
 }
