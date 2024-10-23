@@ -4,6 +4,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { Assunto } from '../models/assunto.model';
 import { environment } from 'src/environments/environment';
 import { Livro } from 'src/models/livro.model';
+import { RelatorioFilter } from 'src/models/relatorio-filter.model';
 
 @Injectable({
     providedIn: 'root'
@@ -39,9 +40,9 @@ export class LivroService {
         );
     }
 
-    gerarRelatorio() {
+    gerarRelatorio(filter: RelatorioFilter) {
         const url = `${this.apiUrl}/GerarRelatorio`;
 
-        return this.http.get(url, { responseType: 'blob' });
+        return this.http.post(url, filter, { responseType: 'blob' });
     }
 }

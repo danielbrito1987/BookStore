@@ -22,6 +22,22 @@
       </div>
     </div>
 
-    <button type="button" class="btn btn-success" (click)="abrirRelatorio()" *ngIf="!isLoading">Gerar Relatório</button>
+    <form (ngSubmit)="abrirRelatorio()" class="mb-3" *ngIf="!isLoading">
+      <div class="form-row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Filtrar por Título" [(ngModel)]="filterTitulo"
+            name="filterTitulo">
+        </div>
+        <div class="col">
+          <select class="form-control mb-2 mr-sm-2" [(ngModel)]="filterAutor" name="filterAutor">
+            <option value="0">Selecione um Autor</option>
+            <option *ngFor="let autor of autores" [value]="autor.codAutor">{{ autor.nome }}</option>
+          </select>
+        </div>
+        <div class="col">
+          <button type="submit" class="btn btn-primary">Gerar Relatório</button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
