@@ -9,6 +9,7 @@ import { PrecoLivro } from 'src/models/preco-livro.model';
 import { AssuntoService } from 'src/services/assunto.service';
 import { AutorService } from 'src/services/autor.service';
 import { LivroService } from 'src/services/livro.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-livro',
@@ -30,6 +31,7 @@ export class LivroComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private toastr: ToastrService,
     private autorService: AutorService,
     private assuntoService: AssuntoService,
     private livroService: LivroService
@@ -141,28 +143,40 @@ export class LivroComponent implements OnInit {
     }
   }
 
+  showToastr() {
+    this.toastr.success('Livro alterado com sucesso!');
+  }
+
   saveLivro() {
-    this.isLoading = true;
+    Object.keys(this.livroForm.controls).forEach(control => {
+      this.livroForm.get(control)?.markAsTouched();
+    });
 
     if (this.livroForm.valid) {
-      const livroData = this.livroForm.value;
+      this.isLoading = true;
 
-      livroData.precos.forEach((preco: any) => {
-        preco.codLivro = this.livroForm.value.codLivro;
-        preco.tipoCompra = Number(preco.tipoCompra);
-        preco.valor = parseFloat(preco.valor.replace(',', '.'));
-      });
+      if (this.livroForm.valid) {
+        const livroData = this.livroForm.value;
 
-      if (this.isEditing) {
-        this.livroService.update(this.livroForm.value).subscribe((data) => {
-          this.loadLivros();
-        })
-      } else {
-        this.livroService.create(this.livroForm.value).subscribe((data) => {
-          this.loadLivros();
-        })
+        livroData.precos.forEach((preco: any) => {
+          preco.codLivro = this.livroForm.value.codLivro;
+          preco.tipoCompra = Number(preco.tipoCompra);
+          preco.valor = parseFloat(preco.valor.replace(',', '.'));
+        });
+
+        if (this.isEditing) {
+          this.livroService.update(this.livroForm.value).subscribe((data) => {
+            this.toastr.success('Livro alterado com sucesso!');
+            this.loadLivros();
+          })
+        } else {
+          this.livroService.create(this.livroForm.value).subscribe((data) => {
+            this.toastr.success('Livro cadastrado com sucesso!');
+            this.loadLivros();
+          })
+        }
+        this.closeModal();
       }
-      this.closeModal();
     }
   }
 
@@ -172,7 +186,11 @@ export class LivroComponent implements OnInit {
       this.isLoading = true;
 
       this.livroService.delete(livro.codLivro).subscribe(() => {
+        this.toastr.success('Livro excluído com sucesso!');
         this.loadLivros();
+      }, (error) => {
+        this.isLoading = false;
+        this.toastr.error(error);
       })
     }
   }

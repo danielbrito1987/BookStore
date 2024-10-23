@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Assunto } from 'src/models/assunto.model';
 import { AssuntoService } from 'src/services/assunto.service';
 import * as bootstrap from 'bootstrap';
@@ -20,10 +20,10 @@ export class AssuntoComponent implements OnInit {
   constructor(
     private assuntoService: AssuntoService,
     private fb: FormBuilder
-  ) { 
+  ) {
     this.assuntoForm = this.fb.group({
       codAssunto: [''],
-      descricao: ['']
+      descricao: ['', Validators.required]
     });
   }
 
@@ -79,26 +79,28 @@ export class AssuntoComponent implements OnInit {
   }
 
   saveAssunto() {
-    this.isLoading = true;
+    if (this.assuntoForm.valid) {
+      this.isLoading = true;
 
-    if (this.isEditing) {
-      this.assuntoService.update(this.assuntoForm.value).subscribe(() => {
-        this.loadAssuntos();
-      });
-    } else {
-      this.assuntoService.create(this.assuntoForm.value).subscribe(() => {
-        this.loadAssuntos();
-      });
+      if (this.isEditing) {
+        this.assuntoService.update(this.assuntoForm.value).subscribe(() => {
+          this.loadAssuntos();
+        });
+      } else {
+        this.assuntoService.create(this.assuntoForm.value).subscribe(() => {
+          this.loadAssuntos();
+        });
+      }
+
+      this.closeModal();
     }
-
-    this.closeModal();
   }
 
   confirmDelete(assunto: Assunto) {
     const confirmDelete = confirm('Tem certeza que deseja excluir este assunto?');
     if (confirmDelete) {
       this.isLoading = true;
-      
+
       this.assuntoService.delete(assunto.codAssunto).subscribe(() => {
         this.loadAssuntos();
       });

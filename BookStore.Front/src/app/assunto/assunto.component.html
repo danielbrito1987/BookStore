@@ -76,7 +76,14 @@
             <form [formGroup]="assuntoForm" (ngSubmit)="saveAssunto()">
               <div class="form-group">
                 <label for="descricao">Descricao</label>
-                <input type="text" id="descricao" formControlName="descricao" class="form-control" required>
+                <input type="text" id="descricao" formControlName="descricao" class="form-control"
+                [ngClass]="{'error-input': assuntoForm.get('descricao')?.invalid && (assuntoForm.get('descricao')?.dirty || assuntoForm.get('descricao')?.touched)}">
+                <div
+                  *ngIf="assuntoForm.get('descricao')?.invalid && (assuntoForm.get('descricao')?.dirty || assuntoForm.get('descricao')?.touched)">
+                  <small class="error-text" *ngIf="assuntoForm.get('descricao')?.errors?.['required']">
+                    A descrição é obrigatória.
+                  </small>
+                </div>
               </div>
             </form>
           </div>

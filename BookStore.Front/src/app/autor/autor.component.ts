@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Autor } from 'src/models/autor.model';
 import { AutorService } from 'src/services/autor.service';
 import * as bootstrap from 'bootstrap';
@@ -23,7 +23,7 @@ export class AutorComponent implements OnInit {
   ) {
     this.autorForm = this.fb.group({
       codAutor: [''],
-      nome: ['']
+      nome: ['', Validators.required]
     });
   }
 
@@ -79,26 +79,28 @@ export class AutorComponent implements OnInit {
   }
 
   saveAutor() {
-    this.isLoading = true;
+    if (this.autorForm.valid) {
+      this.isLoading = true;
 
-    if (this.isEditing) {
-      this.authorService.update(this.autorForm.value).subscribe(() => {
-        this.loadAutores();
-      });
-    } else {
-      this.authorService.create(this.autorForm.value).subscribe(() => {
-        this.loadAutores();
-      });
+      if (this.isEditing) {
+        this.authorService.update(this.autorForm.value).subscribe(() => {
+          this.loadAutores();
+        });
+      } else {
+        this.authorService.create(this.autorForm.value).subscribe(() => {
+          this.loadAutores();
+        });
+      }
+
+      this.closeModal();
     }
-
-    this.closeModal();
   }
 
   confirmDelete(autor: Autor) {
     const confirmDelete = confirm('Tem certeza que deseja excluir este autor?');
     if (confirmDelete) {
       this.isLoading = true;
-      
+
       this.authorService.delete(autor.codAutor).subscribe(() => {
         this.loadAutores();
       });

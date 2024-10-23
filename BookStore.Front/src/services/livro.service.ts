@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Assunto } from '../models/assunto.model';
 import { environment } from 'src/environments/environment';
 import { Livro } from 'src/models/livro.model';
@@ -26,6 +26,16 @@ export class LivroService {
     }
 
     delete(id: number): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/${id}`);
+        return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+            catchError((error: HttpErrorResponse) => {
+                let errorMessage = 'Ocorreu um erro ao tentar excluir o livro.';
+
+                if(error.status === 400) {
+                    errorMessage = error.error || errorMessage;
+                }
+
+                return throwError(errorMessage);
+            })
+        );
     }
 }

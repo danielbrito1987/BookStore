@@ -32,6 +32,7 @@ CREATE TABLE Livro_Autor
 	
 	FOREIGN KEY (Livro_Codl) REFERENCES Livro(Codl),
 	FOREIGN KEY (Autor_CodAu) REFERENCES Autor(CodAu)
+	ON DELETE CASCADE
 )
 
 CREATE TABLE Livro_Assunto
@@ -41,6 +42,7 @@ CREATE TABLE Livro_Assunto
 	
 	FOREIGN KEY (Livro_Codl) REFERENCES Livro(Codl),
 	FOREIGN KEY (Assunto_CodAs) REFERENCES Assunto(CodAs)
+	ON DELETE CASCADE
 )
 
 CREATE TABLE Preco_Livro
@@ -52,4 +54,5 @@ CREATE TABLE Preco_Livro
 	
 	PRIMARY KEY (CodPreco),
 	FOREIGN KEY (Livro_Codl) REFERENCES Livro(Codl)
+	ON DELETE CASCADE
 ) 

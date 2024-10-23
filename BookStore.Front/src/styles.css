@@ -3,3 +3,12 @@
     width: 3rem;
     height: 3rem;
 }
+
+.error-text {
+    color: red;
+    font-size: 12px;
+}
+
+.error-input {
+    border: 1px solid red !important;
+}

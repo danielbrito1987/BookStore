@@ -25,7 +25,7 @@
         </div>
         <div class="col">
           <select class="form-control mb-2 mr-sm-2" [(ngModel)]="filterAutor" name="filterAutor">
-            <option value="">Selecione um Autor</option>
+            <option value="0">Selecione um Autor</option>
             <option *ngFor="let autor of autores" [value]="autor.codAutor">{{ autor.nome }}</option>
           </select>
         </div>
@@ -86,33 +86,91 @@
           </div>
           <div class="modal-body">
             <form [formGroup]="livroForm" (ngSubmit)="saveLivro()">
-              <div class="form-group">
-                <label for="titulo">Título</label>
-                <input type="text" class="form-control" formControlName="titulo" id="titulo" required>
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <input type="text" class="form-control" formControlName="titulo" id="titulo"
+                      [ngClass]="{'error-input': livroForm.get('titulo')?.invalid && (livroForm.get('titulo')?.dirty || livroForm.get('titulo')?.touched)}">
+                    <div
+                      *ngIf="livroForm.get('titulo')?.invalid && (livroForm.get('titulo')?.dirty || livroForm.get('titulo')?.touched)">
+                      <small class="error-text" *ngIf="livroForm.get('titulo')?.errors?.['required']">
+                        O título é obrigatório.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="editora">Editora</label>
+                    <input type="text" class="form-control" formControlName="editora" id="editora"
+                      [ngClass]="{'error-input': livroForm.get('editora')?.invalid && (livroForm.get('editora')?.dirty || livroForm.get('editora')?.touched)}">
+                    <div
+                      *ngIf="livroForm.get('editora')?.invalid && (livroForm.get('editora')?.dirty || livroForm.get('editora')?.touched)">
+                      <small class="error-text" *ngIf="livroForm.get('editora')?.errors?.['required']">
+                        A editora é obrigatória.
+                      </small>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="editora">Editora</label>
-                <input type="text" class="form-control" formControlName="editora" id="editora" required>
-              </div>
-              <div class="form-group">
-                <label for="anoPublicacao">Ano de Publicação</label>
-                <input type="text" class="form-control" formControlName="anoPublicacao" id="anoPublicacao" required>
-              </div>
-              <div class="form-group">
-                <label for="edicao">Edição</label>
-                <input type="text" class="form-control" formControlName="edicao" id="edicao" required>
-              </div>
-              <div class="form-group">
-                <label for="autores">Autores</label>
-                <select class="form-control" formControlName="autoresIds" multiple>
-                  <option *ngFor="let autor of autores" [value]="autor.codAutor">{{ autor.nome }}</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="assuntos">Assuntos</label>
-                <select class="form-control" formControlName="assuntosIds" multiple>
-                  <option *ngFor="let assunto of assuntos" [value]="assunto.codAssunto">{{ assunto.descricao }}</option>
-                </select>
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="anoPublicacao">Ano de Publicação</label>
+                    <input type="text" class="form-control" formControlName="anoPublicacao" id="anoPublicacao"
+                      [ngClass]="{'error-input': livroForm.get('anoPublicacao')?.invalid && (livroForm.get('anoPublicacao')?.dirty || livroForm.get('anoPublicacao')?.touched)}">
+                    <div
+                      *ngIf="livroForm.get('anoPublicacao')?.invalid && (livroForm.get('anoPublicacao')?.dirty || livroForm.get('anoPublicacao')?.touched)">
+                      <small class="error-text" *ngIf="livroForm.get('anoPublicacao')?.errors?.['required']">
+                        O ano de publicação é obrigatório.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="edicao">Edição</label>
+                    <input type="text" class="form-control" formControlName="edicao" id="edicao"
+                      [ngClass]="{'error-input': livroForm.get('edicao')?.invalid && (livroForm.get('edicao')?.dirty || livroForm.get('edicao')?.touched)}">
+                    <div
+                      *ngIf="livroForm.get('edicao')?.invalid && (livroForm.get('edicao')?.dirty || livroForm.get('edicao')?.touched)">
+                      <small class="error-text" *ngIf="livroForm.get('edicao')?.errors?.['required']">
+                        A edição é obrigatória.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>       
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="autores">Autores</label>
+                    <select class="form-control" formControlName="autoresIds" multiple
+                      [ngClass]="{'error-input': livroForm.get('autoresIds')?.invalid && (livroForm.get('autoresIds')?.dirty || livroForm.get('autoresIds')?.touched)}">
+                      <option *ngFor="let autor of autores" [value]="autor.codAutor">{{ autor.nome }}</option>
+                    </select>
+                    <div *ngIf="livroForm.get('autoresIds')?.invalid && (livroForm.get('autoresIds')?.dirty || livroForm.get('autoresIds')?.touched)">
+                      <small class="error-text" *ngIf="livroForm.get('autoresIds')?.errors?.['required']">
+                        Selecione pelo menos 1 autor.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="assuntos">Assuntos</label>
+                    <select class="form-control" formControlName="assuntosIds" multiple
+                      [ngClass]="{'error-input': livroForm.get('assuntosIds')?.invalid && (livroForm.get('assuntosIds')?.dirty || livroForm.get('assuntosIds')?.touched)}">
+                      <option *ngFor="let assunto of assuntos" [value]="assunto.codAssunto">{{ assunto.descricao }}</option>
+                    </select>
+                    <div *ngIf="livroForm.get('assuntosIds')?.invalid && (livroForm.get('assuntosIds')?.dirty || livroForm.get('assuntosIds')?.touched)">
+                      <small class="error-text" *ngIf="livroForm.get('assuntosIds')?.errors?.['required']">
+                        Selecione pelo menos 1 assunto.
+                      </small>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div formArrayName="precos">
                 <div *ngFor="let preco of precos.controls; let i = index" [formGroupName]="i" class="form-group">
@@ -131,7 +189,7 @@
 
                   <button (click)="removerPreco(i)" type="button" class="btn btn-danger">Remover</button>
                 </div>
-                <button (click)="adicionarPreco()" type="button" class="btn btn-primary mt-2">Adicionar Tipo de
+                <button (click)="adicionarPreco()" type="button" class="btn btn-primary mt-2 mb-2">Adicionar Tipo de
                   Compra</button>
               </div>
               <button type="submit" class="btn btn-primary">Salvar</button>
