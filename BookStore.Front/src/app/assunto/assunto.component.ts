@@ -69,7 +69,7 @@ export class AssuntoComponent implements OnInit {
     const modalElement = document.getElementById('modalAssunto');
 
     if (modalElement) {
-      const modal = bootstrap.Modal.getInstance(modalElement); // Obter a instância da modal
+      const modal = bootstrap.Modal.getInstance(modalElement);
       if (modal) {
         modal.hide();
       } else {

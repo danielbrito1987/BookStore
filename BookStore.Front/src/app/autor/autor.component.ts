@@ -69,7 +69,7 @@ export class AutorComponent implements OnInit {
     const modalElement = document.getElementById('modalAutor');
 
     if (modalElement) {
-      const modal = bootstrap.Modal.getInstance(modalElement); // Obter a instância da modal
+      const modal = bootstrap.Modal.getInstance(modalElement);
       if (modal) {
         modal.hide();
       } else {
