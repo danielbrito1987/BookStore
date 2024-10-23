@@ -15,6 +15,6 @@ namespace BookStore.Services.Interfaces
         Task<LivroDto> AddLivroAsync(LivroDto livro);
         Task UpdateLivroAsync(LivroDto livro);
         Task DeleteLivroAsync(int id);
-        Task<byte[]> GerarRelatorioPDF();
+        Task<byte[]> GerarRelatorioPDF(RelatorioFilter filter);
     }
 }

@@ -2,6 +2,7 @@
 using BookStore.Api.Commands;
 using BookStore.Domain.DTO;
 using BookStore.Domain.Entity;
+using BookStore.Services;
 using BookStore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -95,10 +96,10 @@ namespace BookStore.Api.Controllers
             }
         }
 
-        [HttpGet("GerarRelatorio")]
-        public async Task<IActionResult> GerarRelatorio()
+        [HttpPost("GerarRelatorio")]
+        public async Task<IActionResult> GerarRelatorio([FromBody]RelatorioFilter filter)
         {
-            var relatorio = await _service.GerarRelatorioPDF();
+            var relatorio = await _service.GerarRelatorioPDF(filter);
 
             return File(relatorio, "application/pdf", "RelatorioLivros.pdf");
         }

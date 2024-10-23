@@ -30,7 +30,7 @@ namespace BookStore.Infra.Repositories
                 .ToListAsync();
         }
 
-        public IList<LivroReport> ObterDadosRelatorio()
+        public IList<AutorReport> ObterDadosRelatorio(string titulo, int codAutor)
         {
             var listaLivros = new List<LivroReport>();
 
@@ -38,28 +38,63 @@ namespace BookStore.Infra.Repositories
             {
                 conn.Open();
 
-                string query = "SELECT titulo, autores, assuntos, edicao, anoPublicacao, valor FROM vw_Rel_Livros";
+                string query = @"SELECT CodLivro, 
+                                        Titulo, 
+                                        CodAutor, 
+                                        NomeAutor, 
+                                        Assuntos, 
+                                        Edicao, 
+                                        AnoPublicacao, 
+                                        Valor 
+                                FROM vw_Rel_Livros
+                                WHERE 1=1 ";
+
+                if (!string.IsNullOrEmpty(titulo))
+                {
+                    query += $" AND UPPER(Titulo) LIKE '%{titulo.ToUpper()}%' ";
+                }
+
+                if(codAutor > 0)
+                {
+                    query += $" AND CodAutor = {codAutor} ";
+                }
 
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
-                    MySqlDataReader reader = cmd.ExecuteReaderAsync().Result;
+                    MySqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                     {
                         listaLivros.Add(new LivroReport
                         {
-                            Titulo = reader["titulo"] != DBNull.Value ? reader["titulo"].ToString() : "-",
-                            Autores = reader["autores"] != DBNull.Value ? reader["autores"].ToString() : "-",
-                            Assuntos = reader["assuntos"] != DBNull.Value ? reader["assuntos"].ToString() : "-",
-                            Edicao = reader["edicao"] != DBNull.Value ? Convert.ToInt32(reader["edicao"]) : 0,
-                            AnoPublicacao = reader["anoPublicacao"] != DBNull.Value ? Convert.ToInt32(reader["anoPublicacao"]) : 0,
-                            Valor = reader["valor"] != DBNull.Value ? Convert.ToDecimal(reader["valor"]) : 0
+                            CodLivro = reader["CodLivro"] != DBNull.Value ? Convert.ToInt32(reader["CodLivro"]) : 0,
+                            Titulo = reader["Titulo"] != DBNull.Value ? reader["Titulo"].ToString() : "-",
+                            CodAutor = reader["CodAutor"] != DBNull.Value ? Convert.ToInt32(reader["CodAutor"]) : 0,
+                            NomeAutor = reader["NomeAutor"] != DBNull.Value ? reader["NomeAutor"].ToString() : "-",
+                            Assuntos = reader["Assuntos"] != DBNull.Value ? reader["Assuntos"].ToString() : "-",
+                            Edicao = reader["Edicao"] != DBNull.Value ? Convert.ToInt32(reader["Edicao"]) : 0,
+                            AnoPublicacao = reader["AnoPublicacao"] != DBNull.Value ? Convert.ToInt32(reader["AnoPublicacao"]) : 0
                         });
                     }
                 }
             }
 
-            return listaLivros;
+            var agrupadoPorAutor = listaLivros.GroupBy(l => l.CodAutor)
+                .Select(grupo => new AutorReport
+                {
+                    CodAutor = grupo.Key,
+                    Nome = grupo.First().NomeAutor,
+                    Livros = grupo.Select(livro => new LivroReport
+                    {
+                        CodLivro = livro.CodLivro,
+                        Titulo = livro.Titulo,
+                        Assuntos = livro.Assuntos,
+                        Edicao = livro.Edicao,
+                        AnoPublicacao = livro.AnoPublicacao
+                    }).ToList()
+                }).ToList();
+
+            return agrupadoPorAutor;
         }
     }
 }
