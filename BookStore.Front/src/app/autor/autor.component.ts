@@ -25,7 +25,7 @@ export class AutorComponent implements OnInit {
   ) {
     this.autorForm = this.fb.group({
       codAutor: [''],
-      nome: ['', Validators.required]
+      nome: ['', [Validators.required, Validators.maxLength(40)]]
     });
   }
 

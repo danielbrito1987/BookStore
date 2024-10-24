@@ -83,6 +83,9 @@
                   <small class="error-text" *ngIf="assuntoForm.get('descricao')?.errors?.['required']">
                     A descrição é obrigatória.
                   </small>
+                  <small class="error-text" *ngIf="assuntoForm.get('descricao')?.errors?.['maxlength']">
+                    A descrição não pode ter mais que 20 caracteres.
+                  </small>
                 </div>
               </div>
             </form>

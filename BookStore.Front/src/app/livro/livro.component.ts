@@ -38,9 +38,9 @@ export class LivroComponent implements OnInit {
   ) {
     this.livroForm = this.fb.group({
       codLivro: [0],
-      titulo: ['', Validators.required],
-      editora: ['', Validators.required],
-      anoPublicacao: ['', Validators.required],
+      titulo: ['', [Validators.required, Validators.maxLength(40)]],
+      editora: ['', [Validators.required, Validators.maxLength(40)]],
+      anoPublicacao: ['', [Validators.required, , Validators.maxLength(4)]],
       edicao: ['', Validators.required],
       precos: this.fb.array([]),
       autoresIds: [[], Validators.required],

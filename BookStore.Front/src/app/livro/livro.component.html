@@ -93,6 +93,9 @@
                       <small class="error-text" *ngIf="livroForm.get('titulo')?.errors?.['required']">
                         O título é obrigatório.
                       </small>
+                      <small class="error-text" *ngIf="livroForm.get('titulo')?.errors?.['maxlength']">
+                        O título não pode ter mais que 40 caracteres.
+                      </small>
                     </div>
                   </div>
                 </div>
@@ -106,6 +109,9 @@
                       <small class="error-text" *ngIf="livroForm.get('editora')?.errors?.['required']">
                         A editora é obrigatória.
                       </small>
+                      <small class="error-text" *ngIf="livroForm.get('editora')?.errors?.['maxlength']">
+                        A editora não pode ter mais que 40 caracteres.
+                      </small>
                     </div>
                   </div>
                 </div>
@@ -114,12 +120,15 @@
                 <div class="col-6">
                   <div class="form-group">
                     <label for="anoPublicacao">Ano de Publicação</label>
-                    <input type="text" class="form-control" formControlName="anoPublicacao" id="anoPublicacao"
+                    <input type="text" class="form-control" formControlName="anoPublicacao" id="anoPublicacao" mask="0000"
                       [ngClass]="{'error-input': livroForm.get('anoPublicacao')?.invalid && (livroForm.get('anoPublicacao')?.dirty || livroForm.get('anoPublicacao')?.touched)}">
                     <div
                       *ngIf="livroForm.get('anoPublicacao')?.invalid && (livroForm.get('anoPublicacao')?.dirty || livroForm.get('anoPublicacao')?.touched)">
                       <small class="error-text" *ngIf="livroForm.get('anoPublicacao')?.errors?.['required']">
                         O ano de publicação é obrigatório.
+                      </small>
+                      <small class="error-text" *ngIf="livroForm.get('anoPublicacao')?.errors?.['maxlength']">
+                        Formato do ano inválido.
                       </small>
                     </div>
                   </div>

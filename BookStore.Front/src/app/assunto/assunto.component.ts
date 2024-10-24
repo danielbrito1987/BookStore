@@ -25,7 +25,7 @@ export class AssuntoComponent implements OnInit {
   ) {
     this.assuntoForm = this.fb.group({
       codAssunto: [''],
-      descricao: ['', Validators.required]
+      descricao: ['', [Validators.required, , Validators.maxLength(20)]]
     });
   }
 

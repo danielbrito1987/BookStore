@@ -83,6 +83,9 @@
                   <small class="error-text" *ngIf="autorForm.get('nome')?.errors?.['required']">
                     O nome é obrigatório.
                   </small>
+                  <small class="error-text" *ngIf="autorForm.get('nome')?.errors?.['maxlength']">
+                    O nome do autor não pode ter mais que 40 caracteres.
+                  </small>
                 </div>
               </div>
             </form>
