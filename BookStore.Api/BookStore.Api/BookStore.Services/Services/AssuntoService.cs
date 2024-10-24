@@ -27,7 +27,7 @@ namespace BookStore.Services.Services
             return _mapper.Map<IEnumerable<AssuntoDto>>(await _assuntoRepository.GetAllAsync());
         }
 
-        public async Task<AssuntoDto> GetByIdAsync(int id)
+        public async Task<AssuntoDto?> GetByIdAsync(int id)
         {
             return _mapper.Map<AssuntoDto>(await _assuntoRepository.GetByIdAsync(id));
         }

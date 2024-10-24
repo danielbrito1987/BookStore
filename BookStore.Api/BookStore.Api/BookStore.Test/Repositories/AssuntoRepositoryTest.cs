@@ -10,13 +10,19 @@ using Xunit;
 
 namespace BookStore.Test.Repositories
 {
+
     public class AssuntoRepositoryTest
     {
+        Mock<IAssuntoRepository> _autorRepository;
+
+        public AssuntoRepositoryTest()
+        {
+            _autorRepository = new Mock<IAssuntoRepository>();
+        }
+
         [Fact]
         public async Task GetById_ReturnsAssunto_WhenExists()
         {
-            Mock<IAssuntoRepository> _autorRepository = new Mock<IAssuntoRepository>();
-
             // Arrange
             var assuntoId = 1;
             var expectedAssunto = new Assunto { CodAssunto = 1, Descricao = "Assunto Teste" };
@@ -33,8 +39,6 @@ namespace BookStore.Test.Repositories
         [Fact]
         public async Task Add_AddsAssunto()
         {
-            Mock<IAssuntoRepository> _autorRepository = new Mock<IAssuntoRepository>();
-
             // Arrange
             var novoAssunto = new Assunto { Descricao = "Assunto Teste" };
             _autorRepository.Setup(repo => repo.AddAsync(novoAssunto));
@@ -47,10 +51,8 @@ namespace BookStore.Test.Repositories
         }
 
         [Fact]
-        public async Task Update_UpdateAssunto()
+        public void Update_UpdateAssunto()
         {
-            Mock<IAssuntoRepository> _autorRepository = new Mock<IAssuntoRepository>();
-
             // Arrange
             var assunto = new Assunto { CodAssunto = 1, Descricao = "Assunto Teste" };
             _autorRepository.Setup(repo => repo.Update(assunto));
@@ -63,10 +65,8 @@ namespace BookStore.Test.Repositories
         }
 
         [Fact]
-        public async Task Delete_DeleteAssunto()
+        public void Delete_DeleteAssunto()
         {
-            Mock<IAssuntoRepository> _autorRepository = new Mock<IAssuntoRepository>();
-
             // Arrange
             var assunto = new Assunto { CodAssunto = 1, Descricao = "Assunto Teste" };
             _autorRepository.Setup(repo => repo.Delete(assunto));
